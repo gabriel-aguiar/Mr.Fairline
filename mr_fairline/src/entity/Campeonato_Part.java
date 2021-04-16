@@ -2,7 +2,7 @@ package entity;
 
 public class Campeonato_Part {
 
-	private int campeonato_part_id;
+	private Long campeonato_part_id;
 	private String nome;
 	private String slug;
 
@@ -16,18 +16,18 @@ public class Campeonato_Part {
 		this.slug = slug;
 	}
 
-	public Campeonato_Part(int campeonato_part_id, String nome, String slug) {
+	public Campeonato_Part(Long campeonato_part_id, String nome, String slug) {
 		super();
 		this.campeonato_part_id = campeonato_part_id;
 		this.nome = nome;
 		this.slug = slug;
 	}
 
-	public int getCampeonato_part_id() {
+	public Long getCampeonato_part_id() {
 		return campeonato_part_id;
 	}
 
-	public void setCampeonato_part_id(int campeonato_part_id) {
+	public void setCampeonato_part_id(Long campeonato_part_id) {
 		this.campeonato_part_id = campeonato_part_id;
 	}
 
@@ -51,7 +51,7 @@ public class Campeonato_Part {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + campeonato_part_id;
+		result = prime * result + ((campeonato_part_id == null) ? 0 : campeonato_part_id.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((slug == null) ? 0 : slug.hashCode());
 		return result;
@@ -66,7 +66,10 @@ public class Campeonato_Part {
 		if (getClass() != obj.getClass())
 			return false;
 		Campeonato_Part other = (Campeonato_Part) obj;
-		if (campeonato_part_id != other.campeonato_part_id)
+		if (campeonato_part_id == null) {
+			if (other.campeonato_part_id != null)
+				return false;
+		} else if (!campeonato_part_id.equals(other.campeonato_part_id))
 			return false;
 		if (nome == null) {
 			if (other.nome != null)

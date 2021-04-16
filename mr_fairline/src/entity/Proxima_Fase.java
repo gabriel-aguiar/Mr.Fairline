@@ -2,7 +2,7 @@ package entity;
 
 public class Proxima_Fase {
 
-	private int proxima_fase_id;
+	private Long proxima_fase_id;
 	private String nome;
 	private String slug;
 	private String tipo;
@@ -20,7 +20,7 @@ public class Proxima_Fase {
 		this.link = link;
 	}
 
-	public Proxima_Fase(int proxima_fase_id, String nome, String slug, String tipo, String link) {
+	public Proxima_Fase(Long proxima_fase_id, String nome, String slug, String tipo, String link) {
 		super();
 		this.proxima_fase_id = proxima_fase_id;
 		this.nome = nome;
@@ -29,11 +29,11 @@ public class Proxima_Fase {
 		this.link = link;
 	}
 
-	public int getProxima_fase_id() {
+	public Long getProxima_fase_id() {
 		return proxima_fase_id;
 	}
 
-	public void setProxima_fase_id(int proxima_fase_id) {
+	public void setProxima_fase_id(Long proxima_fase_id) {
 		this.proxima_fase_id = proxima_fase_id;
 	}
 
@@ -75,7 +75,7 @@ public class Proxima_Fase {
 		int result = 1;
 		result = prime * result + ((link == null) ? 0 : link.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		result = prime * result + proxima_fase_id;
+		result = prime * result + ((proxima_fase_id == null) ? 0 : proxima_fase_id.hashCode());
 		result = prime * result + ((slug == null) ? 0 : slug.hashCode());
 		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
 		return result;
@@ -100,7 +100,10 @@ public class Proxima_Fase {
 				return false;
 		} else if (!nome.equals(other.nome))
 			return false;
-		if (proxima_fase_id != other.proxima_fase_id)
+		if (proxima_fase_id == null) {
+			if (other.proxima_fase_id != null)
+				return false;
+		} else if (!proxima_fase_id.equals(other.proxima_fase_id))
 			return false;
 		if (slug == null) {
 			if (other.slug != null)
@@ -114,5 +117,6 @@ public class Proxima_Fase {
 			return false;
 		return true;
 	}
+
 	
 }

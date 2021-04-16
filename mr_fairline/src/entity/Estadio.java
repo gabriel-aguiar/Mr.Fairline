@@ -2,7 +2,7 @@ package entity;
 
 public class Estadio {
 
-	private int estadio_id;
+	private Long estadio_id;
 	private String nome_popular;
 
 	public Estadio() {
@@ -14,17 +14,17 @@ public class Estadio {
 		this.nome_popular = nome_popular;
 	}
 
-	public Estadio(int estadio_id, String nome_popular) {
+	public Estadio(Long estadio_id, String nome_popular) {
 		super();
 		this.estadio_id = estadio_id;
 		this.nome_popular = nome_popular;
 	}
 
-	public int getEstadio_id() {
+	public Long getEstadio_id() {
 		return estadio_id;
 	}
 
-	public void setEstadio_id(int estadio_id) {
+	public void setEstadio_id(Long estadio_id) {
 		this.estadio_id = estadio_id;
 	}
 
@@ -40,7 +40,7 @@ public class Estadio {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + estadio_id;
+		result = prime * result + ((estadio_id == null) ? 0 : estadio_id.hashCode());
 		result = prime * result + ((nome_popular == null) ? 0 : nome_popular.hashCode());
 		return result;
 	}
@@ -54,7 +54,10 @@ public class Estadio {
 		if (getClass() != obj.getClass())
 			return false;
 		Estadio other = (Estadio) obj;
-		if (estadio_id != other.estadio_id)
+		if (estadio_id == null) {
+			if (other.estadio_id != null)
+				return false;
+		} else if (!estadio_id.equals(other.estadio_id))
 			return false;
 		if (nome_popular == null) {
 			if (other.nome_popular != null)

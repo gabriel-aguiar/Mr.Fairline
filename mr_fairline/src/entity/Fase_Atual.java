@@ -2,7 +2,7 @@ package entity;
 
 public class Fase_Atual {
 
-	private int fase_atual_id;
+	private Long fase_atual_id;
 	private String nome;
 	private String slug;
 	private String tipo;
@@ -20,7 +20,7 @@ public class Fase_Atual {
 		this.link = link;
 	}
 
-	public Fase_Atual(int fase_atual_id, String nome, String slug, String tipo, String link) {
+	public Fase_Atual(Long fase_atual_id, String nome, String slug, String tipo, String link) {
 		super();
 		this.fase_atual_id = fase_atual_id;
 		this.nome = nome;
@@ -29,11 +29,11 @@ public class Fase_Atual {
 		this.link = link;
 	}
 
-	public int getFase_atual_id() {
+	public Long getFase_atual_id() {
 		return fase_atual_id;
 	}
 
-	public void setFase_atual_id(int fase_atual_id) {
+	public void setFase_atual_id(Long fase_atual_id) {
 		this.fase_atual_id = fase_atual_id;
 	}
 
@@ -73,7 +73,7 @@ public class Fase_Atual {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + fase_atual_id;
+		result = prime * result + ((fase_atual_id == null) ? 0 : fase_atual_id.hashCode());
 		result = prime * result + ((link == null) ? 0 : link.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((slug == null) ? 0 : slug.hashCode());
@@ -90,7 +90,10 @@ public class Fase_Atual {
 		if (getClass() != obj.getClass())
 			return false;
 		Fase_Atual other = (Fase_Atual) obj;
-		if (fase_atual_id != other.fase_atual_id)
+		if (fase_atual_id == null) {
+			if (other.fase_atual_id != null)
+				return false;
+		} else if (!fase_atual_id.equals(other.fase_atual_id))
 			return false;
 		if (link == null) {
 			if (other.link != null)

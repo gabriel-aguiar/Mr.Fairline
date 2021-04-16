@@ -2,7 +2,7 @@ package entity;
 
 public class Time_Mandante {
 
-	private int time_mandante_id;
+	private Long time_mandante_id;
 	private String nome_popular;
 	private String sigla;
 	private String escudo;
@@ -18,7 +18,7 @@ public class Time_Mandante {
 		this.escudo = escudo;
 	}
 
-	public Time_Mandante(int time_mandante_id, String nome_popular, String sigla, String escudo) {
+	public Time_Mandante(Long time_mandante_id, String nome_popular, String sigla, String escudo) {
 		super();
 		this.time_mandante_id = time_mandante_id;
 		this.nome_popular = nome_popular;
@@ -26,11 +26,11 @@ public class Time_Mandante {
 		this.escudo = escudo;
 	}
 
-	public int getTime_mandante_id() {
+	public Long getTime_mandante_id() {
 		return time_mandante_id;
 	}
 
-	public void setTime_mandante_id(int time_mandante_id) {
+	public void setTime_mandante_id(Long time_mandante_id) {
 		this.time_mandante_id = time_mandante_id;
 	}
 
@@ -65,7 +65,7 @@ public class Time_Mandante {
 		result = prime * result + ((escudo == null) ? 0 : escudo.hashCode());
 		result = prime * result + ((nome_popular == null) ? 0 : nome_popular.hashCode());
 		result = prime * result + ((sigla == null) ? 0 : sigla.hashCode());
-		result = prime * result + time_mandante_id;
+		result = prime * result + ((time_mandante_id == null) ? 0 : time_mandante_id.hashCode());
 		return result;
 	}
 
@@ -93,10 +93,13 @@ public class Time_Mandante {
 				return false;
 		} else if (!sigla.equals(other.sigla))
 			return false;
-		if (time_mandante_id != other.time_mandante_id)
+		if (time_mandante_id == null) {
+			if (other.time_mandante_id != null)
+				return false;
+		} else if (!time_mandante_id.equals(other.time_mandante_id))
 			return false;
 		return true;
 	}
-	
+
 	
 }

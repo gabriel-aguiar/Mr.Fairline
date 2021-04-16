@@ -10,9 +10,9 @@ public class Fase {
 	private String nome;
 	private String slug;
 	private String status;
-	private int decisivo; // boolean
-	private int eliminatorio; // boolean
-	private int ida_e_volta; // boolean
+	private int decisivo;
+	private int eliminatorio;
+	private int ida_e_volta;
 	private String tipo;
 	private Chave chave;
 	private Long chave_id;

@@ -2,9 +2,12 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import conexao.Dao;
+import entity.Edicao;
 import entity.Proxima_Fase;
 
 public class Proxima_Fase_Dao extends Dao{
@@ -16,13 +19,17 @@ public class Proxima_Fase_Dao extends Dao{
 			+ "link) "
 			+ "VALUES (?,?,?,?,?)";
 	
+	private static final String SELECT = "SELECT * FROM Proxima_Fase";
+	
+	private static final String SELECT_ID = "SELECT * FROM Proxima_Fase WHERE proxima_fase_id = ";
+	
 	//Salva no banco
 	public void store(Proxima_Fase proxima_fase){
 
 		try (Connection connection = this.conectar();
 			PreparedStatement pst = connection.prepareStatement(INSERT);) {
 		
-			pst.setInt(1, proxima_fase.getProxima_fase_id());
+			pst.setLong(1, proxima_fase.getProxima_fase_id());
 			pst.setString(2, proxima_fase.getNome());
 			pst.setString(3, proxima_fase.getSlug());
 			pst.setString(4, proxima_fase.getTipo());
@@ -39,44 +46,56 @@ public class Proxima_Fase_Dao extends Dao{
 
 	}
 	
+	public  ArrayList<Proxima_Fase> selectAllCotation() {
+		
+		ArrayList<Proxima_Fase> listTime = new ArrayList<Proxima_Fase>();
+		try(Connection connection = this.conectar();
+				PreparedStatement pst = connection.prepareStatement(SELECT);)
+		{
+			ResultSet rs = pst.executeQuery();
+			
+			while(rs.next())
+			{				
 
-
-//	public  ArrayList<Times> selectAllCotation() {
-//		
-//		ArrayList<Times> listTime = new ArrayList<Times>();
-//		try(Connection connection = this.conectar();
-//				PreparedStatement pst = connection.prepareStatement(SELECT);)
-//		{
-//			ResultSet rs = pst.executeQuery();
-//			
-//			while(rs.next())
-//			{				
-//
-//				Times tim = new Times();
-//				tim.setPosicao(rs.getString("posicao"));
-//				tim.setNome(rs.getString("nome"));
-//				tim.setPontos(rs.getInt("pontos"));
-//				tim.setJogos(rs.getInt("jogos"));
-//				tim.setVitorias(rs.getInt("vitorias"));
-//				tim.setEmpates(rs.getInt("empates"));
-//				tim.setDerrotas(rs.getInt("derrotas"));
-//			    tim.setGols_pro(rs.getInt("gols_pro"));
-//			    tim.setGols_contra(rs.getInt("gols_contra"));
-//			    tim.setTotal_gols(rs.getInt("total_gols"));
-//			    tim.setAproveitamento(rs.getInt("aproveitamento"));	
-//				
-//				listTime.add (tim);
-//			}		
-//			
-//		}
-//		catch (SQLException e)
-//		{
-//			e.printStackTrace();
-//		}
-//		
-//		return listTime;
-//		
-//	}
+				Proxima_Fase proxima_fase_id = new Proxima_Fase();
+				proxima_fase_id.setProxima_fase_id(rs.getLong("proxima_fase_id"));
+				proxima_fase_id.setNome(rs.getString("nome"));
+				proxima_fase_id.setSlug(rs.getString("slug"));
+				proxima_fase_id.setTipo(rs.getString("tipo"));
+				proxima_fase_id.setLink(rs.getString("link"));	
+			
+				listTime.add (proxima_fase_id);
+			}		
+			
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
+		return listTime;
+		
+	}
+	
+	public boolean ValidaProxima_Fase(Long id) {
+		
+		try(Connection connection = this.conectar();
+				PreparedStatement pst = connection.prepareStatement(SELECT_ID + id);)
+		{
+			ResultSet rs = pst.executeQuery();
+			
+			while(rs.next())
+			{				
+				return false;
+			}		
+			
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return true;
+	}
 
 }
 

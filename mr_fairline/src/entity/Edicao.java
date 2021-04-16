@@ -2,7 +2,7 @@ package entity;
 
 public class Edicao {
 
-	private int edicao_id;
+	private Long edicao_id;
 	private String temporada;
 	private String nome;
 	private String nome_popular;
@@ -20,7 +20,7 @@ public class Edicao {
 		this.slug = slug;
 	}
 
-	public Edicao(int edicao_id, String temporada, String nome, String nome_popular, String slug) {
+	public Edicao(Long edicao_id, String temporada, String nome, String nome_popular, String slug) {
 		super();
 		this.edicao_id = edicao_id;
 		this.temporada = temporada;
@@ -29,11 +29,11 @@ public class Edicao {
 		this.slug = slug;
 	}
 
-	public int getEdicao_id() {
+	public Long getEdicao_id() {
 		return edicao_id;
 	}
 
-	public void setEdicao_id(int edicao_id) {
+	public void setEdicao_id(Long edicao_id) {
 		this.edicao_id = edicao_id;
 	}
 
@@ -73,7 +73,7 @@ public class Edicao {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + edicao_id;
+		result = prime * result + ((edicao_id == null) ? 0 : edicao_id.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((nome_popular == null) ? 0 : nome_popular.hashCode());
 		result = prime * result + ((slug == null) ? 0 : slug.hashCode());
@@ -90,7 +90,10 @@ public class Edicao {
 		if (getClass() != obj.getClass())
 			return false;
 		Edicao other = (Edicao) obj;
-		if (edicao_id != other.edicao_id)
+		if (edicao_id == null) {
+			if (other.edicao_id != null)
+				return false;
+		} else if (!edicao_id.equals(other.edicao_id))
 			return false;
 		if (nome == null) {
 			if (other.nome != null)

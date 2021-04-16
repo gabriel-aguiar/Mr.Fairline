@@ -20,6 +20,7 @@ public class Edicao_Dao extends Dao{
 			+ "VALUES (?,?,?,?,?)";
 	
 	private static final String SELECT = "SELECT * FROM Edicao";
+	
 	private static final String SELECT_ID = "SELECT * FROM Edicao WHERE edicao_id = ";
 	
 	//Salva no banco
@@ -28,7 +29,7 @@ public class Edicao_Dao extends Dao{
 		try (Connection connection = this.conectar();
 			PreparedStatement pst = connection.prepareStatement(INSERT);) {
 		
-			pst.setInt(1, edicao.getEdicao_id());
+			pst.setLong(1, edicao.getEdicao_id());
 			pst.setString(2, edicao.getTemporada());
 			pst.setString(3, edicao.getNome());
 			pst.setString(4, edicao.getNome_popular());
@@ -57,7 +58,7 @@ public class Edicao_Dao extends Dao{
 			{				
 
 				Edicao edi = new Edicao();
-				edi.setEdicao_id(rs.getInt("edicao_id"));
+				edi.setEdicao_id(rs.getLong("edicao_id"));
 				edi.setTemporada(rs.getString("temporada"));
 				edi.setNome(rs.getString("nome"));
 				edi.setNome_popular(rs.getString("nome_popular"));
@@ -76,7 +77,7 @@ public class Edicao_Dao extends Dao{
 		
 	}
 	
-	public boolean ValidaEdicao(int id) {
+	public boolean ValidaEdicao(Long id) {
 		
 		try(Connection connection = this.conectar();
 				PreparedStatement pst = connection.prepareStatement(SELECT_ID + id);)

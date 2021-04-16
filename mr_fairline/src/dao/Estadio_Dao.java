@@ -2,9 +2,12 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import conexao.Dao;
+import entity.Edicao;
 import entity.Estadio;
 
 public class Estadio_Dao extends Dao{
@@ -13,13 +16,17 @@ public class Estadio_Dao extends Dao{
 			+ "nome_popular) "
 			+ "VALUES (?,?)";
 	
+	private static final String SELECT = "SELECT * FROM Estadio";
+	
+	private static final String SELECT_ID = "SELECT * FROM Estadio WHERE estadio_id = ";
+	
 	//Salva no banco
 	public void store(Estadio estadio){
 
 		try (Connection connection = this.conectar();
 			PreparedStatement pst = connection.prepareStatement(INSERT);) {
 		
-			pst.setInt(1, estadio.getEstadio_id());
+			pst.setLong(1, estadio.getEstadio_id());
 			pst.setString(2, estadio.getNome_popular());
 			
 			pst.executeUpdate();	
@@ -33,43 +40,52 @@ public class Estadio_Dao extends Dao{
 
 	}
 	
+	public  ArrayList<Estadio> selectAllCotation() {
+		
+		ArrayList<Estadio> listTime = new ArrayList<Estadio>();
+		try(Connection connection = this.conectar();
+				PreparedStatement pst = connection.prepareStatement(SELECT);)
+		{
+			ResultSet rs = pst.executeQuery();
+			
+			while(rs.next())
+			{				
 
-
-//	public  ArrayList<Times> selectAllCotation() {
-//		
-//		ArrayList<Times> listTime = new ArrayList<Times>();
-//		try(Connection connection = this.conectar();
-//				PreparedStatement pst = connection.prepareStatement(SELECT);)
-//		{
-//			ResultSet rs = pst.executeQuery();
-//			
-//			while(rs.next())
-//			{				
-//
-//				Times tim = new Times();
-//				tim.setPosicao(rs.getString("posicao"));
-//				tim.setNome(rs.getString("nome"));
-//				tim.setPontos(rs.getInt("pontos"));
-//				tim.setJogos(rs.getInt("jogos"));
-//				tim.setVitorias(rs.getInt("vitorias"));
-//				tim.setEmpates(rs.getInt("empates"));
-//				tim.setDerrotas(rs.getInt("derrotas"));
-//			    tim.setGols_pro(rs.getInt("gols_pro"));
-//			    tim.setGols_contra(rs.getInt("gols_contra"));
-//			    tim.setTotal_gols(rs.getInt("total_gols"));
-//			    tim.setAproveitamento(rs.getInt("aproveitamento"));	
-//				
-//				listTime.add (tim);
-//			}		
-//			
-//		}
-//		catch (SQLException e)
-//		{
-//			e.printStackTrace();
-//		}
-//		
-//		return listTime;
-//		
-//	}
-
+				Estadio estadio = new Estadio();
+				estadio.setEstadio_id(rs.getLong("estadio_id"));
+				estadio.setNome_popular(rs.getString("nome_popular"));	
+			
+				listTime.add (estadio);
+			}		
+			
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
+		return listTime;
+		
+	}
+	
+	public boolean ValidaEstadio(Long id) {
+		
+		try(Connection connection = this.conectar();
+				PreparedStatement pst = connection.prepareStatement(SELECT_ID + id);)
+		{
+			ResultSet rs = pst.executeQuery();
+			
+			while(rs.next())
+			{				
+				return false;
+			}		
+			
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return true;
+	}
+	
 }

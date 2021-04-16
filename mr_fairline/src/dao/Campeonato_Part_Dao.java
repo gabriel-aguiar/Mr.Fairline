@@ -2,10 +2,13 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import conexao.Dao;
 import entity.Campeonato_Part;
+import entity.Edicao;
 
 public class Campeonato_Part_Dao extends Dao{
 	
@@ -14,13 +17,17 @@ public class Campeonato_Part_Dao extends Dao{
 			+ "slug) "
 			+ "VALUES (?,?,?)";
 	
+	private static final String SELECT = "SELECT * FROM Campeonato_Part";
+	
+	private static final String SELECT_ID = "SELECT * FROM Campeonato_Part WHERE campeonato_part_id = ";
+	
 	//Salva no banco
 	public void store(Campeonato_Part camp_p){
 
 		try (Connection connection = this.conectar();
 			PreparedStatement pst = connection.prepareStatement(INSERT);) {
 		
-			pst.setInt(1, camp_p.getCampeonato_part_id());
+			pst.setLong(1, camp_p.getCampeonato_part_id());
 			pst.setString(2, camp_p.getNome());
 			pst.setString(3, camp_p.getSlug());
 			
@@ -35,43 +42,53 @@ public class Campeonato_Part_Dao extends Dao{
 
 	}
 	
+	public  ArrayList<Campeonato_Part> selectAllCotation() {
+		
+		ArrayList<Campeonato_Part> listTime = new ArrayList<Campeonato_Part>();
+		try(Connection connection = this.conectar();
+				PreparedStatement pst = connection.prepareStatement(SELECT);)
+		{
+			ResultSet rs = pst.executeQuery();
+			
+			while(rs.next())
+			{				
 
-
-//	public  ArrayList<Times> selectAllCotation() {
-//		
-//		ArrayList<Times> listTime = new ArrayList<Times>();
-//		try(Connection connection = this.conectar();
-//				PreparedStatement pst = connection.prepareStatement(SELECT);)
-//		{
-//			ResultSet rs = pst.executeQuery();
-//			
-//			while(rs.next())
-//			{				
-//
-//				Times tim = new Times();
-//				tim.setPosicao(rs.getString("posicao"));
-//				tim.setNome(rs.getString("nome"));
-//				tim.setPontos(rs.getInt("pontos"));
-//				tim.setJogos(rs.getInt("jogos"));
-//				tim.setVitorias(rs.getInt("vitorias"));
-//				tim.setEmpates(rs.getInt("empates"));
-//				tim.setDerrotas(rs.getInt("derrotas"));
-//			    tim.setGols_pro(rs.getInt("gols_pro"));
-//			    tim.setGols_contra(rs.getInt("gols_contra"));
-//			    tim.setTotal_gols(rs.getInt("total_gols"));
-//			    tim.setAproveitamento(rs.getInt("aproveitamento"));	
-//				
-//				listTime.add (tim);
-//			}		
-//			
-//		}
-//		catch (SQLException e)
-//		{
-//			e.printStackTrace();
-//		}
-//		
-//		return listTime;
-//		
-//	}
+				Campeonato_Part campeonato_Part = new Campeonato_Part();
+				campeonato_Part.setCampeonato_part_id(rs.getLong("campeonato_part_id"));
+				campeonato_Part.setNome(rs.getString("nome"));
+				campeonato_Part.setSlug(rs.getString("slug"));	
+			
+				listTime.add (campeonato_Part);
+			}		
+			
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
+		return listTime;
+		
+	}
+	
+	public boolean ValidaCampeonato_Part(Long id) {
+		
+		try(Connection connection = this.conectar();
+				PreparedStatement pst = connection.prepareStatement(SELECT_ID + id);)
+		{
+			ResultSet rs = pst.executeQuery();
+			
+			while(rs.next())
+			{				
+				return false;
+			}		
+			
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return true;
+	}
 
 }

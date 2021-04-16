@@ -2,14 +2,14 @@ package entity;
 
 public class Campeonato {
 
-	private long campeonato_id;
+	private Long campeonato_id;
 	private String nome;
 	private String slug;
 	private String nome_popular;
 	private Edicao edicao_atual;
-	private long edicao_atual_id;
+	private Long edicao_atual_id;
 	private Fase fase_atual;
-	private long fase_atual_id;
+	private Long fase_atual_id;
 	private String rodada_atual;
 	private String status;
 	private String tipo;
@@ -19,11 +19,9 @@ public class Campeonato {
 	public Campeonato() {
 
 	}
-	
-	
 
-	public Campeonato(String nome, String slug, String nome_popular, Edicao edicao_atual, long edicao_atual_id,
-			Fase fase_atual, long fase_atual_id, String rodada_atual, String status, String tipo, String logo,
+	public Campeonato(String nome, String slug, String nome_popular, Edicao edicao_atual, Long edicao_atual_id,
+			Fase fase_atual, Long fase_atual_id, String rodada_atual, String status, String tipo, String logo,
 			String link) {
 		super();
 		this.nome = nome;
@@ -40,10 +38,8 @@ public class Campeonato {
 		this.link = link;
 	}
 
-
-
-	public Campeonato(long campeonato_id, String nome, String slug, String nome_popular, Edicao edicao_atual,
-			long edicao_atual_id, Fase fase_atual, long fase_atual_id, String rodada_atual, String status, String tipo,
+	public Campeonato(Long campeonato_id, String nome, String slug, String nome_popular, Edicao edicao_atual,
+			Long edicao_atual_id, Fase fase_atual, Long fase_atual_id, String rodada_atual, String status, String tipo,
 			String logo, String link) {
 		super();
 		this.campeonato_id = campeonato_id;
@@ -61,13 +57,11 @@ public class Campeonato {
 		this.link = link;
 	}
 
-
-
-	public long getCampeonato_id() {
+	public Long getCampeonato_id() {
 		return campeonato_id;
 	}
 
-	public void setCampeonato_id(long campeonato_id) {
+	public void setCampeonato_id(Long campeonato_id) {
 		this.campeonato_id = campeonato_id;
 	}
 
@@ -95,14 +89,6 @@ public class Campeonato {
 		this.nome_popular = nome_popular;
 	}
 
-	public long getEdicao_atual_id() {
-		return edicao_atual_id;
-	}
-
-	public void setEdicao_atual_id(long edicao_atual_id) {
-		this.edicao_atual_id = edicao_atual_id;
-	}
-
 	public Edicao getEdicao_atual() {
 		return edicao_atual;
 	}
@@ -111,12 +97,12 @@ public class Campeonato {
 		this.edicao_atual = edicao_atual;
 	}
 
-	public long getFase_atual_id() {
-		return fase_atual_id;
+	public Long getEdicao_atual_id() {
+		return edicao_atual_id;
 	}
 
-	public void setFase_atual_id(long fase_atual_id) {
-		this.fase_atual_id = fase_atual_id;
+	public void setEdicao_atual_id(Long edicao_atual_id) {
+		this.edicao_atual_id = edicao_atual_id;
 	}
 
 	public Fase getFase_atual() {
@@ -125,6 +111,14 @@ public class Campeonato {
 
 	public void setFase_atual(Fase fase_atual) {
 		this.fase_atual = fase_atual;
+	}
+
+	public Long getFase_atual_id() {
+		return fase_atual_id;
+	}
+
+	public void setFase_atual_id(Long fase_atual_id) {
+		this.fase_atual_id = fase_atual_id;
 	}
 
 	public String getRodada_atual() {
@@ -159,24 +153,23 @@ public class Campeonato {
 		this.logo = logo;
 	}
 
-	public String getlink() {
+	public String getLink() {
 		return link;
 	}
 
-	public void setlink(String link) {
+	public void setLink(String link) {
 		this.link = link;
 	}
-
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (campeonato_id ^ (campeonato_id >>> 32));
+		result = prime * result + ((campeonato_id == null) ? 0 : campeonato_id.hashCode());
 		result = prime * result + ((edicao_atual == null) ? 0 : edicao_atual.hashCode());
-		result = prime * result + (int) (edicao_atual_id ^ (edicao_atual_id >>> 32));
+		result = prime * result + ((edicao_atual_id == null) ? 0 : edicao_atual_id.hashCode());
 		result = prime * result + ((fase_atual == null) ? 0 : fase_atual.hashCode());
-		result = prime * result + (int) (fase_atual_id ^ (fase_atual_id >>> 32));
+		result = prime * result + ((fase_atual_id == null) ? 0 : fase_atual_id.hashCode());
 		result = prime * result + ((link == null) ? 0 : link.hashCode());
 		result = prime * result + ((logo == null) ? 0 : logo.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
@@ -197,21 +190,30 @@ public class Campeonato {
 		if (getClass() != obj.getClass())
 			return false;
 		Campeonato other = (Campeonato) obj;
-		if (campeonato_id != other.campeonato_id)
+		if (campeonato_id == null) {
+			if (other.campeonato_id != null)
+				return false;
+		} else if (!campeonato_id.equals(other.campeonato_id))
 			return false;
 		if (edicao_atual == null) {
 			if (other.edicao_atual != null)
 				return false;
 		} else if (!edicao_atual.equals(other.edicao_atual))
 			return false;
-		if (edicao_atual_id != other.edicao_atual_id)
+		if (edicao_atual_id == null) {
+			if (other.edicao_atual_id != null)
+				return false;
+		} else if (!edicao_atual_id.equals(other.edicao_atual_id))
 			return false;
 		if (fase_atual == null) {
 			if (other.fase_atual != null)
 				return false;
 		} else if (!fase_atual.equals(other.fase_atual))
 			return false;
-		if (fase_atual_id != other.fase_atual_id)
+		if (fase_atual_id == null) {
+			if (other.fase_atual_id != null)
+				return false;
+		} else if (!fase_atual_id.equals(other.fase_atual_id))
 			return false;
 		if (link == null) {
 			if (other.link != null)
@@ -255,5 +257,6 @@ public class Campeonato {
 			return false;
 		return true;
 	}
-
+	
+	
 }
