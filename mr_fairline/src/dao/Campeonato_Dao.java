@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 import conexao.Dao;
 import entity.Campeonato;
-import entity.Edicao;
 
 public class Campeonato_Dao extends Dao{
 	
@@ -17,14 +16,12 @@ public class Campeonato_Dao extends Dao{
 			+ "nome,"
 			+ "slug,"
 			+ "nome_popular,"
-			+ "edicao_atual_id,"
-			+ "fase_atual_id,"
-			+ "rodada_atual,"
+			+ "edicao_id,"
 			+ "status,"
 			+ "tipo,"
 			+ "logo,"
 			+ "link) "
-			+ "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+			+ "VALUES (?,?,?,?,?,?,?,?,?)";
 	
 	private static final String SELECT = "SELECT * FROM Campeonato";
 	
@@ -42,26 +39,19 @@ public class Campeonato_Dao extends Dao{
 			pst.setString(3, camp.getSlug());
 			pst.setString(4, camp.getNome_popular());
 			
-			if(camp.getEdicao_atual_id() != null) {
-				pst.setLong(5, camp.getEdicao_atual_id());
+			if(camp.getEdicao_id() != null) {
+				pst.setLong(5, camp.getEdicao_id());
 			}else {
 				pst.setNull(5, Types.INTEGER);
 			}
 			
-			pst.setLong(6, camp.getFase_atual_id());
-			if(camp.getFase_atual_id() != null) {
-				pst.setLong(2, camp.getFase_atual_id());
-			}else {
-				pst.setNull(2, Types.INTEGER);
-			}
-			
-			pst.setString(7, camp.getRodada_atual());
-			pst.setString(8, camp.getStatus());
-			pst.setString(9, camp.getTipo());
-			pst.setString(10, camp.getLogo());
-			pst.setString(11, camp.getLink());
+			pst.setString(6, camp.getStatus());
+			pst.setString(7, camp.getTipo());
+			pst.setString(8, camp.getLogo());
+			pst.setString(9, camp.getLink());
 			
 			pst.executeUpdate();	
+		
 			
 			System.out.println("Salvou");
 
@@ -89,9 +79,7 @@ public class Campeonato_Dao extends Dao{
 				camp.setNome(rs.getString("nome"));
 				camp.setSlug(rs.getString("slug"));
 				camp.setNome_popular(rs.getString("nome_popular"));
-				camp.setEdicao_atual_id(rs.getLong("edicao_atual_id"));
-				camp.setFase_atual_id(rs.getLong("fase_atual_id"));
-				camp.setRodada_atual(rs.getString("rodada_atual"));
+				camp.setEdicao_id(rs.getLong("edicao_atual_id"));
 				camp.setStatus(rs.getString("status"));
 				camp.setTipo(rs.getString("tipo"));
 				camp.setLogo(rs.getString("logo"));	

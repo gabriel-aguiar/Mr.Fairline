@@ -7,28 +7,27 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import conexao.Dao;
-import entity.Proxima_Fase;
-import entity.Time_Mandante;
+import entity.Time;
 
-public class Time_Mandante_Dao extends Dao{
+public class Time_Dao extends Dao{
 	
-	private static final String INSERT = "INSERT INTO Time_Mandante (time_mandante_id,"
+	private static final String INSERT = "INSERT INTO Time (time_id,"
 			+ "nome_popular,"
 			+ "sigla,"
 			+ "escudo) "
 			+ "VALUES (?,?,?,?)";
 	
-	private static final String SELECT = "SELECT * FROM Time_Mandante";
+	private static final String SELECT = "SELECT * FROM Time";
 	
-	private static final String SELECT_ID = "SELECT * FROM Time_Mandante WHERE time_mandante_id = ";
+	private static final String SELECT_ID = "SELECT * FROM Time WHERE time_id = ";
 	
 	//Salva no banco
-	public void store(Time_Mandante time_mandante){
+	public void store(Time time_mandante){
 
 		try (Connection connection = this.conectar();
 			PreparedStatement pst = connection.prepareStatement(INSERT);) {
 		
-			pst.setLong(1, time_mandante.getTime_mandante_id());
+			pst.setLong(1, time_mandante.getTime_id());
 			pst.setString(2, time_mandante.getNome_popular());
 			pst.setString(3, time_mandante.getSigla());
 			pst.setString(4, time_mandante.getEscudo());
@@ -39,14 +38,14 @@ public class Time_Mandante_Dao extends Dao{
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Não Salvou");
+			System.out.println("Não Salvou6");
 		}
 
 	}
 	
-	public  ArrayList<Time_Mandante> selectAllCotation() {
+	public  ArrayList<Time> selectAllCotation() {
 		
-		ArrayList<Time_Mandante> listTime = new ArrayList<Time_Mandante>();
+		ArrayList<Time> listTime = new ArrayList<Time>();
 		try(Connection connection = this.conectar();
 				PreparedStatement pst = connection.prepareStatement(SELECT);)
 		{
@@ -55,8 +54,8 @@ public class Time_Mandante_Dao extends Dao{
 			while(rs.next())
 			{				
 
-				Time_Mandante time_mandante = new Time_Mandante();
-				time_mandante.setTime_mandante_id(rs.getLong("time_mandante_id"));
+				Time time_mandante = new Time();
+				time_mandante.setTime_id(rs.getLong("time_id"));
 				time_mandante.setNome_popular(rs.getString("nome_popular"));
 				time_mandante.setSigla(rs.getString("sigla"));
 				time_mandante.setEscudo(rs.getString("escudo"));
@@ -74,7 +73,7 @@ public class Time_Mandante_Dao extends Dao{
 		
 	}
 	
-	public boolean ValidaTime_Mandante(Long id) {
+	public boolean ValidaTime(Long id) {
 		
 		try(Connection connection = this.conectar();
 				PreparedStatement pst = connection.prepareStatement(SELECT_ID + id);)

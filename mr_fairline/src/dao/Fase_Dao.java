@@ -8,7 +8,6 @@ import java.sql.Types;
 import java.util.ArrayList;
 
 import conexao.Dao;
-import entity.Campeonato;
 import entity.Fase;
 
 public class Fase_Dao extends Dao{
@@ -23,16 +22,14 @@ public class Fase_Dao extends Dao{
 			+ "decisivo,"
 			+ "eliminatorio,"
 			+ "ida_e_volta,"
-			+ "tipo,"
-			+ "chave_id, "
-			+ "proxima_fase_id ) "
-			+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+			+ "tipo) "
+			+ "VALUES (?,?,?,?,?,?,?,?,?,?)";
 	
 	private static final String SELECT = "SELECT * FROM Fase";
 	
 	private static final String SELECT_ID = "SELECT * FROM Fase WHERE fase_id = ";
 	
-	private static final String UPDATE = "UPDATE Fase";
+	//private static final String UPDATE = "UPDATE Fase";
 	
 	
 	//Salva no banco
@@ -63,25 +60,13 @@ public class Fase_Dao extends Dao{
 			pst.setInt(9, fase.getIda_e_volta());
 			pst.setString(10, fase.getTipo());
 			
-			if(fase.getChave_id() != null) {
-				pst.setLong(11, fase.getChave_id());
-			}else {
-				pst.setNull(11, Types.INTEGER);
-			}
-			
-			if(fase.getProxima_fase_id() != null) {
-				pst.setLong(12, fase.getProxima_fase_id());
-			}else {
-				pst.setNull(12, Types.INTEGER);
-			}
-			
 			pst.executeUpdate();
 			
 			System.out.println("Salvou");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Não Salvou");
+			System.out.println("Não Salvou4");
 		}
 
 	}
@@ -108,8 +93,6 @@ public class Fase_Dao extends Dao{
 				fase.setEliminatorio(rs.getInt("eliminatorio"));
 				fase.setIda_e_volta(rs.getInt("ida_e_volta"));
 				fase.setTipo(rs.getString("tipo"));
-				fase.setChave_id(rs.getLong("chave_id"));
-				fase.setProxima_fase_id(rs.getLong("proxima_fase_id"));
 				
 			
 				listTime.add (fase);
@@ -146,7 +129,7 @@ public class Fase_Dao extends Dao{
 		return true;
 	}
 	
-	
+	/*
 	public void update(Fase fase){
 
 		try (Connection connection = this.conectar();
@@ -170,16 +153,6 @@ public class Fase_Dao extends Dao{
 			pst.setLong(8, fase.getEliminatorio());
 			pst.setLong(9, fase.getIda_e_volta());
 			pst.setString(10, fase.getTipo());
-			if(fase.getChave_id() != null) {
-				pst.setLong(11, fase.getChave_id());
-			}else {
-				pst.setNull(11, Types.INTEGER);
-			}
-			if(fase.getProxima_fase_id() != null) {
-				pst.setLong(12, fase.getProxima_fase_id());
-			}else {
-				pst.setNull(12, Types.INTEGER);
-			}
 			
 			pst.executeUpdate();
 			
@@ -202,8 +175,6 @@ public class Fase_Dao extends Dao{
 					
 					+ (fase.getEdicao_id() != null ? "edicao_id =" + fase.getEdicao_id() : "")
 					+ (fase.getCampeonato_id() != null ? "campeonato_id =" + fase.getCampeonato_id() : "")
-					+ (fase.getProxima_fase_id() != null ? "proxima_fase_id =" + fase.getProxima_fase_id() : "")
-					
 					
 					
 					+ "WHERE fase_id = " + fase.getFase_id()
@@ -221,6 +192,6 @@ public class Fase_Dao extends Dao{
 			System.out.println("Não Salvou");
 		}
 
-	}
+	}*/
 	
 }

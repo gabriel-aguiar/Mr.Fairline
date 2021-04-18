@@ -6,11 +6,8 @@ public class Campeonato {
 	private String nome;
 	private String slug;
 	private String nome_popular;
-	private Edicao edicao_atual;
-	private Long edicao_atual_id;
-	private Fase fase_atual;
-	private Long fase_atual_id;
-	private String rodada_atual;
+	//private Edicao edicao;
+	private Long edicao_id;
 	private String status;
 	private String tipo;
 	private String logo;
@@ -20,37 +17,29 @@ public class Campeonato {
 
 	}
 
-	public Campeonato(String nome, String slug, String nome_popular, Edicao edicao_atual, Long edicao_atual_id,
-			Fase fase_atual, Long fase_atual_id, String rodada_atual, String status, String tipo, String logo,
-			String link) {
+	public Campeonato(String nome, String slug, String nome_popular, Edicao edicao, Long edicao_id,
+			String status, String tipo, String logo, String link) {
 		super();
 		this.nome = nome;
 		this.slug = slug;
 		this.nome_popular = nome_popular;
-		this.edicao_atual = edicao_atual;
-		this.edicao_atual_id = edicao_atual_id;
-		this.fase_atual = fase_atual;
-		this.fase_atual_id = fase_atual_id;
-		this.rodada_atual = rodada_atual;
+		//this.edicao = edicao;
+		this.edicao_id = edicao_id;
 		this.status = status;
 		this.tipo = tipo;
 		this.logo = logo;
 		this.link = link;
 	}
 
-	public Campeonato(Long campeonato_id, String nome, String slug, String nome_popular, Edicao edicao_atual,
-			Long edicao_atual_id, Fase fase_atual, Long fase_atual_id, String rodada_atual, String status, String tipo,
-			String logo, String link) {
+	public Campeonato(Long campeonato_id, String nome, String slug, String nome_popular, Edicao edicao, Long edicao_id,
+			String status, String tipo, String logo, String link) {
 		super();
 		this.campeonato_id = campeonato_id;
 		this.nome = nome;
 		this.slug = slug;
 		this.nome_popular = nome_popular;
-		this.edicao_atual = edicao_atual;
-		this.edicao_atual_id = edicao_atual_id;
-		this.fase_atual = fase_atual;
-		this.fase_atual_id = fase_atual_id;
-		this.rodada_atual = rodada_atual;
+		//this.edicao = edicao;
+		this.edicao_id = edicao_id;
 		this.status = status;
 		this.tipo = tipo;
 		this.logo = logo;
@@ -89,44 +78,20 @@ public class Campeonato {
 		this.nome_popular = nome_popular;
 	}
 
-	public Edicao getEdicao_atual() {
-		return edicao_atual;
+	/*public Edicao getEdicao() {
+		return edicao;
 	}
 
-	public void setEdicao_atual(Edicao edicao_atual) {
-		this.edicao_atual = edicao_atual;
+	public void setEdicao(Edicao edicao) {
+		this.edicao = edicao;
+	}*/
+
+	public Long getEdicao_id() {
+		return edicao_id;
 	}
 
-	public Long getEdicao_atual_id() {
-		return edicao_atual_id;
-	}
-
-	public void setEdicao_atual_id(Long edicao_atual_id) {
-		this.edicao_atual_id = edicao_atual_id;
-	}
-
-	public Fase getFase_atual() {
-		return fase_atual;
-	}
-
-	public void setFase_atual(Fase fase_atual) {
-		this.fase_atual = fase_atual;
-	}
-
-	public Long getFase_atual_id() {
-		return fase_atual_id;
-	}
-
-	public void setFase_atual_id(Long fase_atual_id) {
-		this.fase_atual_id = fase_atual_id;
-	}
-
-	public String getRodada_atual() {
-		return rodada_atual;
-	}
-
-	public void setRodada_atual(String rodada_atual) {
-		this.rodada_atual = rodada_atual;
+	public void setEdicao_id(Long edicao_id) {
+		this.edicao_id = edicao_id;
 	}
 
 	public String getStatus() {
@@ -166,15 +131,12 @@ public class Campeonato {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((campeonato_id == null) ? 0 : campeonato_id.hashCode());
-		result = prime * result + ((edicao_atual == null) ? 0 : edicao_atual.hashCode());
-		result = prime * result + ((edicao_atual_id == null) ? 0 : edicao_atual_id.hashCode());
-		result = prime * result + ((fase_atual == null) ? 0 : fase_atual.hashCode());
-		result = prime * result + ((fase_atual_id == null) ? 0 : fase_atual_id.hashCode());
+		//result = prime * result + ((edicao == null) ? 0 : edicao.hashCode());
+		result = prime * result + ((edicao_id == null) ? 0 : edicao_id.hashCode());
 		result = prime * result + ((link == null) ? 0 : link.hashCode());
 		result = prime * result + ((logo == null) ? 0 : logo.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((nome_popular == null) ? 0 : nome_popular.hashCode());
-		result = prime * result + ((rodada_atual == null) ? 0 : rodada_atual.hashCode());
 		result = prime * result + ((slug == null) ? 0 : slug.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
@@ -195,25 +157,15 @@ public class Campeonato {
 				return false;
 		} else if (!campeonato_id.equals(other.campeonato_id))
 			return false;
-		if (edicao_atual == null) {
-			if (other.edicao_atual != null)
+		/*if (edicao == null) {
+			if (other.edicao != null)
 				return false;
-		} else if (!edicao_atual.equals(other.edicao_atual))
-			return false;
-		if (edicao_atual_id == null) {
-			if (other.edicao_atual_id != null)
+		} else if (!edicao.equals(other.edicao))
+			return false;*/
+		if (edicao_id == null) {
+			if (other.edicao_id != null)
 				return false;
-		} else if (!edicao_atual_id.equals(other.edicao_atual_id))
-			return false;
-		if (fase_atual == null) {
-			if (other.fase_atual != null)
-				return false;
-		} else if (!fase_atual.equals(other.fase_atual))
-			return false;
-		if (fase_atual_id == null) {
-			if (other.fase_atual_id != null)
-				return false;
-		} else if (!fase_atual_id.equals(other.fase_atual_id))
+		} else if (!edicao_id.equals(other.edicao_id))
 			return false;
 		if (link == null) {
 			if (other.link != null)
@@ -235,11 +187,6 @@ public class Campeonato {
 				return false;
 		} else if (!nome_popular.equals(other.nome_popular))
 			return false;
-		if (rodada_atual == null) {
-			if (other.rodada_atual != null)
-				return false;
-		} else if (!rodada_atual.equals(other.rodada_atual))
-			return false;
 		if (slug == null) {
 			if (other.slug != null)
 				return false;
@@ -257,6 +204,5 @@ public class Campeonato {
 			return false;
 		return true;
 	}
-	
 	
 }

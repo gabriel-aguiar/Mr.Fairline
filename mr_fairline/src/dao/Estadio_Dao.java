@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import conexao.Dao;
-import entity.Edicao;
 import entity.Estadio;
 
 public class Estadio_Dao extends Dao{
@@ -35,7 +34,7 @@ public class Estadio_Dao extends Dao{
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Não Salvou");
+			System.out.println("Não Salvou3");
 		}
 
 	}
