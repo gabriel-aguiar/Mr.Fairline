@@ -6,11 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import conexao.Dao;
+import conexao.Connect;
 import entity.Edicao;
 
 
-public class Edicao_Dao extends Dao{
+public class Edicao_Dao extends Connect{
 	
 	private static final String INSERT = "INSERT INTO Edicao (edicao_id,"
 			+ "temporada,"

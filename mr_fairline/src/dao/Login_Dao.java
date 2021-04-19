@@ -7,26 +7,28 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import conexao.Connect;
-import entity.Estadio;
+import entity.Login;
 
-public class Estadio_Dao extends Connect{
+public class Login_Dao extends Connect{
+
+	private static final String INSERT = "INSERT INTO Login (nome,"
+			+ "email,"
+			+ "senha)"
+			+ "VALUES (?,?,?)";
 	
-	private static final String INSERT = "INSERT INTO Estadio (estadio_id,"
-			+ "nome_popular) "
-			+ "VALUES (?,?)";
+	private static final String SELECT = "SELECT * FROM Login";
 	
-	private static final String SELECT = "SELECT * FROM Estadio";
-	
-	private static final String SELECT_ID = "SELECT * FROM Estadio WHERE estadio_id = ";
+	private static final String SELECT_ID = "SELECT * FROM Login WHERE email = ";
 	
 	//Salva no banco
-	public void store(Estadio estadio){
+	public void store(Login login){
 
 		try (Connection connection = this.conectar();
 			PreparedStatement pst = connection.prepareStatement(INSERT);) {
 		
-			pst.setLong(1, estadio.getEstadio_id());
-			pst.setString(2, estadio.getNome_popular());
+			pst.setString(1, login.getNome());
+			pst.setString(2, login.getEmail());
+			pst.setString(3, login.getSenha());
 			
 			pst.executeUpdate();	
 			
@@ -34,14 +36,14 @@ public class Estadio_Dao extends Connect{
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Não Salvou3");
+			System.out.println("Não Salvou7");
 		}
 
 	}
 	
-	public  ArrayList<Estadio> selectAllCotation() {
+	public  ArrayList<Login> selectAllCotation() {
 		
-		ArrayList<Estadio> listTime = new ArrayList<Estadio>();
+		ArrayList<Login> listLogin = new ArrayList<Login>();
 		try(Connection connection = this.conectar();
 				PreparedStatement pst = connection.prepareStatement(SELECT);)
 		{
@@ -50,11 +52,12 @@ public class Estadio_Dao extends Connect{
 			while(rs.next())
 			{				
 
-				Estadio estadio = new Estadio();
-				estadio.setEstadio_id(rs.getLong("estadio_id"));
-				estadio.setNome_popular(rs.getString("nome_popular"));	
+				Login login = new Login();
+				login.setNome(rs.getString("nome"));
+				login.setEmail(rs.getString("email"));
+				login.setSenha(rs.getString("senha"));
 			
-				listTime.add (estadio);
+				listLogin.add (login);
 			}		
 			
 		}
@@ -63,14 +66,14 @@ public class Estadio_Dao extends Connect{
 			e.printStackTrace();
 		}
 		
-		return listTime;
+		return listLogin;
 		
 	}
 	
-	public boolean ValidaEstadio(Long id) {
+	public boolean ValidaLogin(String email) {
 		
 		try(Connection connection = this.conectar();
-				PreparedStatement pst = connection.prepareStatement(SELECT_ID + id);)
+				PreparedStatement pst = connection.prepareStatement(SELECT_ID + email);)
 		{
 			ResultSet rs = pst.executeQuery();
 			

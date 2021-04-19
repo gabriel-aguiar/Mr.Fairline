@@ -92,7 +92,7 @@
                                     <h1 data-animation="fadeInLeft" data-delay=".6s ">Estatísticas esportivas</h1>
                                     <p data-animation="fadeInLeft" data-delay=".8s">Para acessar as informações é necessário criar uma conta.</p>
                                     <div class="slider-btns">
-                                        <form action = "graficos" method = "POST">
+                                        <form action = "graficos" method = "GET">
                                             <button class="btn radius-btn" data-animation="fadeInLeft" data-delay="1s" type="submit">Navegar</button>
                                         </form>
                                     </div>

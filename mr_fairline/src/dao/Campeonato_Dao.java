@@ -7,10 +7,10 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 
-import conexao.Dao;
+import conexao.Connect;
 import entity.Campeonato;
 
-public class Campeonato_Dao extends Dao{
+public class Campeonato_Dao extends Connect{
 	
 	private static final String INSERT = "INSERT INTO Campeonato (campeonato_id,"
 			+ "nome,"

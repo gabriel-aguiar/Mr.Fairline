@@ -7,10 +7,10 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 
-import conexao.Dao;
+import conexao.Connect;
 import entity.Jogos;
 
-public class Jogos_Dao extends Dao{
+public class Jogos_Dao extends Connect{
 	
 	// TODO arrumar insert
 	private static final String INSERT = "INSERT INTO Jogo (jogos_id,"

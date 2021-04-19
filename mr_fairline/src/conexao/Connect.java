@@ -3,7 +3,7 @@ package conexao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class Dao {
+public class Connect {
 	
 	private String driver = "com.mysql.cj.jdbc.Driver";
 	private String url = "jdbc:mysql://127.0.0.1:3306/mr.fairline?useTimezone=true&serverTimezone=UTC&useUnicode=yes&characterEncoding=UTF-8";

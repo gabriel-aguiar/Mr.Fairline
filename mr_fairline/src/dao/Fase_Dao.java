@@ -7,10 +7,10 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 
-import conexao.Dao;
+import conexao.Connect;
 import entity.Fase;
 
-public class Fase_Dao extends Dao{
+public class Fase_Dao extends Connect{
 	
 	// TODO arrumar insert
 	private static final String INSERT = "INSERT INTO Fase (fase_id,"

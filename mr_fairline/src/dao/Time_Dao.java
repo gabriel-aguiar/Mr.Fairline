@@ -6,10 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import conexao.Dao;
+import conexao.Connect;
 import entity.Time;
 
-public class Time_Dao extends Dao{
+public class Time_Dao extends Connect{
 	
 	private static final String INSERT = "INSERT INTO Time (time_id,"
 			+ "nome_popular,"

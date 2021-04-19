@@ -21,12 +21,14 @@ import dao.Edicao_Dao;
 import dao.Estadio_Dao;
 import dao.Fase_Dao;
 import dao.Jogos_Dao;
+import dao.Login_Dao;
 import dao.Time_Dao;
 import entity.Campeonato;
 import entity.Edicao;
 import entity.Fase;
 import entity.Estadio;
 import entity.Jogos;
+import entity.Login;
 import entity.Time;
 
 @WebServlet(name = "graficos", urlPatterns = { "/graficos" })
@@ -39,17 +41,32 @@ public class Graficos extends HttpServlet {
 	private Estadio_Dao estadioDao;
 	private Jogos_Dao jogosDao;
 	private Time_Dao timeDao;
+	private Login_Dao loginDao;
 
 	public Graficos() {
 
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		String nome = request.getParameter("name");
+		String email = request.getParameter("email");
+		String senha = request.getParameter("password");
+
+		Login login = toLogin(nome, email, senha);
+		try {
+			loginDao = new Login_Dao();
+			loginDao.store(login);
+			System.out.println("Save");
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		response.sendRedirect("Login.jsp");
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		// servico
@@ -74,7 +91,6 @@ public class Graficos extends HttpServlet {
 
 		// conversao response to json
 		JsonObject convertedObject = new Gson().fromJson(Response.toString(), JsonObject.class);
-		response.getWriter().print(convertedObject);
 
 		// SALVAR
 		Fase fase = toFaseJson(convertedObject);
@@ -88,6 +104,7 @@ public class Graficos extends HttpServlet {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+
 	}
 
 	// TODO validar obj null
@@ -144,17 +161,6 @@ public class Graficos extends HttpServlet {
 		campeonato.setSlug(json.get("slug").getAsString());
 		campeonato.setNome_popular(json.get("nome_popular").getAsString());
 		campeonato.setEdicao_id(Edicao_id);
-		/*
-		 * if(json.get("edicao") != null &&
-		 * json.get("edicao").getAsJsonObject().get("edicao_id") != null) {
-		 * 
-		 * try { Edicao edicao = toEdicaoJson(json.get("edicao").getAsJsonObject()); if
-		 * (edicaoDao.ValidaEdicao(edicao.getEdicao_id())){ edicaoDao.store(edicao); }
-		 * campeonato.setEdicao_id(json.get("edicao").getAsJsonObject().get("edicao_id")
-		 * .getAsLong()); } catch (Exception e) { System.out.println(e); }
-		 * 
-		 * }
-		 */
 		campeonato.setStatus(json.get("status").getAsString());
 		campeonato.setTipo(json.get("tipo").getAsString());
 		campeonato.setLogo(json.get("logo").getAsString());
@@ -165,13 +171,12 @@ public class Graficos extends HttpServlet {
 	private void toJogosJson(JsonObject jsonRequest, Long Fase, Long Campeonato) {
 
 		jsonRequest.getAsJsonArray("chaves").forEach(chave -> {
-			
+
 			JsonObject json = chave.getAsJsonObject();
 			Jogos jogos = new Jogos();
 			jogos.setJogos_id(json.get("partida_ida").getAsJsonObject().get("partida_id").getAsLong());
 			jogos.setNome(json.get("nome").getAsString());
 			jogos.setCampeonato_id(Campeonato);
-			// jogos.setCampeonato_id(json.get("campeonato").getAsJsonObject().get("campeonato_id").getAsLong());
 			jogos.setPlacar(json.get("partida_ida").getAsJsonObject().get("placar").getAsString());
 
 			Time time_v = toTimeJson(json.get("partida_ida").getAsJsonObject().get("time_visitante").getAsJsonObject());
@@ -202,7 +207,8 @@ public class Graficos extends HttpServlet {
 			jogos.setSlug(json.get("partida_ida").getAsJsonObject().get("slug").getAsString());
 			jogos.setData_realizacao(json.get("partida_ida").getAsJsonObject().get("data_realizacao").getAsString());
 			jogos.setHora_realizacao(json.get("partida_ida").getAsJsonObject().get("hora_realizacao").getAsString());
-			jogos.setData_realizacao_iso(json.get("partida_ida").getAsJsonObject().get("data_realizacao_iso").getAsString());
+			jogos.setData_realizacao_iso(
+					json.get("partida_ida").getAsJsonObject().get("data_realizacao_iso").getAsString());
 
 			Estadio estadio = toEstadioJson(json.get("partida_ida").getAsJsonObject().get("estadio").getAsJsonObject());
 			try {
@@ -226,7 +232,7 @@ public class Graficos extends HttpServlet {
 			} catch (Exception e) {
 				System.out.println(e);
 			}
-			
+
 		});
 		return;
 	}
@@ -245,6 +251,15 @@ public class Graficos extends HttpServlet {
 		estadio.setEstadio_id(json.get("estadio_id").getAsLong());
 		estadio.setNome_popular(json.get("nome_popular").getAsString());
 		return estadio;
+	}
+
+	private Login toLogin(String nome, String email, String senha) {
+		Login login = new Login();
+		login.setNome(nome);
+		login.setEmail(email);
+		login.setSenha(senha);
+
+		return login;
 	}
 
 }
