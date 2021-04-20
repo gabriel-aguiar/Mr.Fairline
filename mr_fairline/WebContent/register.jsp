@@ -2,11 +2,10 @@
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
-
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Entrar</title>
+<title>Registrar</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="manifest" href="site.webmanifest">
@@ -37,39 +36,45 @@
 				<div class="preloader-inner position-relative">
 					<div class="preloader-circle"></div>
 					<div class="preloader-img pere-text">
-						<img src="assets/img/logo//icons8-soccer-ball-64.png" alt="">
+						<img src="assets/img/logo/icons8-soccer-ball-64.png" alt="">
 					</div>
 				</div>
 			</div>
 		</div>
+
 		<main class="login-body">
-			<form class="form-default" action="graficos" method="GET">
+			<form class="form-default" action="graficos" method="POST">
 				<div class="login-form">
-					<h2>Entrar</h2>
+					<h2>Registrar agora</h2>
 					<div class="form-input">
-						<label>UserName</label> <input required name="username"
-							id="username" type="text" name="username" />
+						<label for="name">Nome</label> <input required name="name" id="name" type="name" name="name">
 					</div>
 					<div class="form-input">
-						<label>Password</label> <input required name="password"
-							id="password" type="password" name="password" />
+						<label for="name">Email</label> <input required name="email" id="email" type="email" name="email">
+					</div>
+					<div class="form-input">
+						<label for="name">Senha</label> <input  required name="password" id="password" type="password"
+							name="password">
+					</div>
+					<div class="form-input">
+						<label for="name">Confirmação de senha</label> <input
+							required name="password" id="password" type="password" name="password">
 					</div>
 					<div class="form-input pt-30">
-						<td colspan="2"><input type="submit" value="Entrar" /></td>
+						<td colspan="2"><input type="submit" value="Cadastrar" /></td>
+						<!--<li class="button-header justify-content-center" type="submit" name="submit"><a class="btn">CADASTRAR</a></li>-->
 					</div>
-					<a href="#" class="forget text-center" style="color: white">Esqueci
-						minha senha</a> <a href="register.jsp"
-						class="registration text-center" style="color: white">Registrar</a>
+					<br> <a href="Login.jsp" class="registration text-center"
+						style="color: white">Entrar</a>
 				</div>
 			</form>
 		</main>
 		<div id="back-top">
-			<a title="Página inicial" href="Principal.jsp"> <i
+			<a title="Página inicial" href="index.html"> <i
 				class="fas fa-level-up-alt"></i></a>
 		</div>
 	</div>
 </body>
-
 <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
 <!-- Jquery, Popper, Bootstrap -->
 <script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
@@ -113,15 +118,4 @@
 <!-- Jquery Plugins, main Jquery -->
 <script src="./assets/js/plugins.js"></script>
 <script src="./assets/js/main.js"></script>
-
-<%
-if (session.getAttribute("Status") != null && session.getAttribute("Status") == ("ERROR")) {
-	//response.sendRedirect("Login.jsp");
-%>
-<script type="text/javascript">
-	alert("USUARIO OU SENHA INCORRETO - FAVOR SE NÂO TIVER CADASTRO FAZER");
-</script>
-<%
-}
-%>
 </html>

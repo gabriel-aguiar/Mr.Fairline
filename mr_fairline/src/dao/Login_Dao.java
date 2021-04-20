@@ -18,7 +18,9 @@ public class Login_Dao extends Connect{
 	
 	private static final String SELECT = "SELECT * FROM Login";
 	
-	private static final String SELECT_ID = "SELECT * FROM Login WHERE email = ";
+	private static final String SELECT_email = "SELECT * FROM Login WHERE email = ";
+	
+	private static final String SELECT_senha = "SELECT * FROM Login WHERE senha = ";
 	
 	//Salva no banco
 	public void store(Login login){
@@ -70,16 +72,16 @@ public class Login_Dao extends Connect{
 		
 	}
 	
-	public boolean ValidaLogin(String email) {
+	public boolean ValidaLoginEmail(String email) {
 		
 		try(Connection connection = this.conectar();
-				PreparedStatement pst = connection.prepareStatement(SELECT_ID + email);)
+				PreparedStatement pst = connection.prepareStatement(SELECT_email + "'" + email + "'");)
 		{
 			ResultSet rs = pst.executeQuery();
 			
 			while(rs.next())
 			{				
-				return false;
+				return true;
 			}		
 			
 		}
@@ -87,7 +89,27 @@ public class Login_Dao extends Connect{
 		{
 			e.printStackTrace();
 		}
-		return true;
+		return false;
+	}
+	
+	public boolean ValidaLoginSenha(String senha) {
+		
+		try(Connection connection = this.conectar();
+				PreparedStatement pst = connection.prepareStatement(SELECT_senha + senha);)
+		{
+			ResultSet rs = pst.executeQuery();
+			
+			while(rs.next())
+			{				
+				return true;
+			}		
+			
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return false;
 	}
 	
 }

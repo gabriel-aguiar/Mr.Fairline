@@ -66,7 +66,7 @@
                                                 </ul>
                                                 </li>
                                                 <li><a href="contact.html">Contato</a></li>
-                                                <li class="button-header margin-left "><a href="register.html" class="btn">CADASTRAR</a></li>
+                                                <li class="button-header margin-left "><a href="register.jsp" class="btn">CADASTRAR</a></li>
                                                 <li class="button-header"><a href="Login.jsp" class="btn3">ENTRAR</a></li>
                                             </ul>
                                         </nav>

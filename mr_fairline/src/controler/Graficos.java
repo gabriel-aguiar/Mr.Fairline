@@ -3,6 +3,7 @@ package controler;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -11,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -42,6 +44,7 @@ public class Graficos extends HttpServlet {
 	private Jogos_Dao jogosDao;
 	private Time_Dao timeDao;
 	private Login_Dao loginDao;
+	private boolean Login;
 
 	public Graficos() {
 
@@ -54,7 +57,7 @@ public class Graficos extends HttpServlet {
 		String email = request.getParameter("email");
 		String senha = request.getParameter("password");
 
-		Login login = toLogin(nome, email, senha);
+		Login login = toRegister(nome, email, senha);
 		try {
 			loginDao = new Login_Dao();
 			loginDao.store(login);
@@ -62,47 +65,68 @@ public class Graficos extends HttpServlet {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		
+
 		response.sendRedirect("Login.jsp");
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// servico
-		String SURL = "https://api.api-futebol.com.br/v1/campeonatos/2/fases/91";
-		URL url = new URL(SURL);
-		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		String email = request.getParameter("username");
+		String senha = request.getParameter("password");
+		HttpSession session=request.getSession();
 
-		conn.setRequestProperty("Authorization", "Bearer " + "live_3c47619e72400c2f456998647bf3ec");
+		Login = toLogin(email, senha);
+		if (Login) {
+			
+			session.setAttribute("status", "SUCCESS");
 
-		conn.setRequestProperty("Content-Type", "application/json");
-		conn.setRequestMethod("GET");
+			// servico
+			String SURL = "https://api.api-futebol.com.br/v1/campeonatos/2/fases/91";
+			URL url = new URL(SURL);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-		BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		String output;
+			conn.setRequestProperty("Authorization", "Bearer " + "live_3c47619e72400c2f456998647bf3ec");
 
-		StringBuffer Response = new StringBuffer();
-		while ((output = in.readLine()) != null) {
-			Response.append(output);
-		}
+			conn.setRequestProperty("Content-Type", "application/json");
+			conn.setRequestMethod("GET");
 
-		in.close();
+			BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			String output;
 
-		// conversao response to json
-		JsonObject convertedObject = new Gson().fromJson(Response.toString(), JsonObject.class);
-
-		// SALVAR
-		Fase fase = toFaseJson(convertedObject);
-		try {
-			faseDao = new Fase_Dao();
-			if (faseDao.ValidaFase(fase.getFase_id())) {
-				faseDao.store(fase);
-				toJogosJson(convertedObject, fase.getFase_id(), fase.getCampeonato_id());
-				System.out.println("CARGA DE DADOS FINALIZADA");
+			StringBuffer Response = new StringBuffer();
+			while ((output = in.readLine()) != null) {
+				Response.append(output);
 			}
-		} catch (Exception e) {
-			System.out.println(e);
+
+			in.close();
+
+			// conversao response to json
+			JsonObject convertedObject = new Gson().fromJson(Response.toString(), JsonObject.class);
+
+			// SALVAR
+			Fase fase = toFaseJson(convertedObject);
+			try {
+				faseDao = new Fase_Dao();
+				if (faseDao.ValidaFase(fase.getFase_id())) {
+					faseDao.store(fase);
+					toJogosJson(convertedObject, fase.getFase_id(), fase.getCampeonato_id());
+					System.out.println("CARGA DE DADOS FINALIZADA");
+				}
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+
+			session.setAttribute("Status", "SUCCESS");
+			response.sendRedirect("Principal.jsp");
+			
+		}else{
+			
+			session.setAttribute("username", "");
+			session.setAttribute("password", "");
+		    session.setAttribute("Status", "ERROR");
+		    response.sendRedirect("Login.jsp");
+			
 		}
 
 	}
@@ -253,13 +277,35 @@ public class Graficos extends HttpServlet {
 		return estadio;
 	}
 
-	private Login toLogin(String nome, String email, String senha) {
+	private Login toRegister(String nome, String email, String senha) {
 		Login login = new Login();
 		login.setNome(nome);
 		login.setEmail(email);
 		login.setSenha(senha);
 
 		return login;
+	}
+
+	private boolean toLogin(String email, String senha) {
+		Login login = new Login();
+		boolean valide = false;
+		login.setEmail(email);
+		login.setSenha(senha);
+
+		try {
+			loginDao = new Login_Dao();
+			if (loginDao.ValidaLoginEmail(login.getEmail())) {
+				if (loginDao.ValidaLoginSenha(login.getSenha())) {
+
+					valide = true;
+
+				}
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		return valide;
 	}
 
 }
