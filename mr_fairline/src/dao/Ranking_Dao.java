@@ -12,8 +12,8 @@ import entity.Ranking;
 public class Ranking_Dao extends Connect{
 	
 	private static final String INNER_JOIN = "SELECT escudo,"
-			+ "       nome_popular,"
-			+ "       GOLS "
+			+ "       GOLS,"
+			+ "       nome_popular "
 			+ " FROM"
 			+ "  (SELECT time.nome_popular,"
 			+ "          time.escudo AS ESCUDO,"
@@ -39,8 +39,8 @@ public class Ranking_Dao extends Connect{
 
 				Ranking ranking = new Ranking();
 				ranking.setEscudo(rs.getString("ESCUDO"));
-				ranking.setNome_popular(rs.getString("nome_popular"));
 				ranking.setGols(rs.getInt("GOLS"));
+				ranking.setNome_popular(rs.getString("nome_popular"));
 
 				listRanking.add(ranking);
 			}

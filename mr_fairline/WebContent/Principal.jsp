@@ -62,7 +62,7 @@
                                                 <ul class="submenu">
                                                   <li><a href="blog.html">Estatísticas</a></li>
                                                   <li><a href="blog_details.html">Gráficos</a></li>
-                                                  <li><a href="elements.html">Tabelas</a></li>
+                                                  <li><a href="ranking.jsp" >Tabelas</a></li>
                                                 </ul>
                                                 </li>
                                                 <li><a href="contact.html">Contato</a></li>

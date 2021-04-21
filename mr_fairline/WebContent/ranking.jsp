@@ -1,12 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ page import="entity.Ranking"%>
+<%@ page import="entity.Partidas"%>
 <%@ page import="java.util.ArrayList"%>
-<%
-ArrayList<Ranking> lista = (ArrayList<Ranking>) request.getAttribute("listaTodas");
-%>
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -27,6 +23,10 @@ ArrayList<Ranking> lista = (ArrayList<Ranking>) request.getAttribute("listaTodas
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
 	integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 	crossorigin="anonymous"></script>
+<script type="text/javascript"
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
 
 <style type="text/css">
 #content-tabble {
@@ -71,7 +71,7 @@ ArrayList<Ranking> lista = (ArrayList<Ranking>) request.getAttribute("listaTodas
 }
 
 #content-tabble th {
-	background-color: red;
+	background-color: purple;
 	font-size-adjust: none;
 }
 
@@ -83,30 +83,9 @@ body h1 {
 
 </head>
 <body>
-	<nav class="main-header navbar navbar-expand navbar-white navbar-light">
-		<!-- Left navbar links -->
-		<ul class="navbar-nav">
-			<li class="nav-item d-none d-sm-inline-block">
-				<h1>Cotação</h1>
-			</li>
-		</ul>
-	</nav>
-	<aside class="main-sidebar sidebar-dark-primary elevation-4">
-		<div class="sidebar">
-			<nav class="mt-2">
-				<ul class="nav nav-pills nav-sidebar flex-column"
-					data-widget="treeview" role="menu" data-accordion="false">
-					<li class="nav-item"><a href="Dashboard.jsp" class="nav-link">
-							<i class="nav-icon fas fa-home"></i>
-							<p>Dashboard</p>
-					</a></li>
-				</ul>
-			</nav>
-		</div>
-	</aside>
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
-			<div class="col-xl-11 ">
+			<div class="col-4" style="left: 500px">
 				<div class="card">
 					<!-- /.card-header -->
 					<div class="card-body table-responsive p-0" style="height: 790px;">
@@ -114,118 +93,77 @@ body h1 {
 							id="content-tabble">
 							<thead>
 								<tr>
+									<th>COLOCAÇÃO</th>
 									<th>ESCUDO</th>
-									<th>NAME</th>
 									<th>GOLS</th>
+									<th>TIMES</th>
 								</tr>
 							</thead>
-							<tbody>
-								<%
-								for (int i = 0; i < lista.size(); i++) {
-								%>
-								<tr class="active-row">
-									<td><%=lista.get(i).getEscudo()%></td>
-									<td><%=lista.get(i).getNome_popular()%></td>
-									<td><%=lista.get(i).getGols()%></td>
-								</tr>
-								<%
-								}
-								%>
+							<tbody id="colocacao">
 							</tbody>
 						</table>
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-1">
-				<button type="button" class="btn btn-default" id="BT"
-					data-toggle="modal" data-target="#modal-xl">Franco Suiço</button>
-				<button type="button" class="btn btn-default" id="BT"
-					data-toggle="modal" data-target="#modal-xl">Peso Argentino</button>
-				<button type="button" class="btn btn-default" id="BT"
-					data-toggle="modal" data-target="#modal-xl">Euro</button>
-				<button type="button" class="btn btn-default" id="BT"
-					data-toggle="modal" data-target="#modal-xl">Dolar
-					Comercial</button>
-				<button type="button" class="btn btn-default" id="BT"
-					data-toggle="modal" data-target="#modal-xl">Dolar
-					Canadense</button>
-				<button type="button" class="btn btn-default" id="BT"
-					data-toggle="modal" data-target="#modal-xl">Dolar Turismo</button>
-				<button type="button" class="btn btn-default" id="BT"
-					data-toggle="modal" data-target="#modal-xl">Bitcoin</button>
-				<button type="button" class="btn btn-default" id="BT"
-					data-toggle="modal" data-target="#modal-xl">Dolar
-					Australiano</button>
-				<button type="button" class="btn btn-default" id="BT"
-					data-toggle="modal" data-target="#modal-xl">Novo Shekel
-					Israelense</button>
-				<button type="button" class="btn btn-default" id="BT"
-					data-toggle="modal" data-target="#modal-xl">Iene Japonês</button>
-				<button type="button" class="btn btn-default" id="BT"
-					data-toggle="modal" data-target="#modal-xl">Libra
-					Esterlina</button>
-				<button type="button" class="btn btn-default" id="BT"
-					data-toggle="modal" data-target="#modal-xl">Ripple</button>
-				<button type="button" class="btn btn-default" id="BT"
-					data-toggle="modal" data-target="#modal-xl">Ethereum</button>
-				<button type="button" class="btn btn-default" id="BT"
-					data-toggle="modal" data-target="#modal-xl">Litecoin</button>
-			</div>
-
-		</div>
-		<form action="dollar" method="POST">
-			<button class="btn btn-danger" type="submit">Atualizar
-				valores</button>
-		</form>
-		<div class="modal fade" id="modal-xl" style="display: none;"
-			aria-hidden="true">
-			<div class="modal-dialog modal-xl">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title">Dólar</h4>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>
+			<div class="col-4" style="left: 500px">
+				<div class="card">
+					<!-- /.card-header -->
 					<div class="card-body table-responsive p-0" style="height: 790px;">
 						<table class="table table-head-fixed text-nowrap"
 							id="content-tabble">
 							<thead>
-								<tr class="active-row">
-									<th>CODE</th>
-									<th>NAME</th>
-									<th>COMPRA</th>
-									<th>Venda</th>
-									<th>Maximo</th>
-									<th>Minimo</th>
-									<th>Diferenca_maxima_minima</th>
-									<th>Variacao</th>
-									<th>Porcentagem_de_variacao</th>
+								<tr>
+									<th>DATA</th>
+									<th>HORA</th>
+									<th>TIME DA CASA</th>
+									<th>PLACAR</th>
+									<th>TIME VISITANTE</th>
 								</tr>
 							</thead>
-							
+							<tbody id="jogos">
+							</tbody>
 						</table>
 					</div>
-					<div class="modal-footer justify-content-between">
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-					</div>
 				</div>
-				<!-- /.modal-content -->
 			</div>
-			<!-- /.modal-dialog -->
 		</div>
 	</div>
-
-
-	<footer class="main-footer">
-		<strong>Copyright © 2021 <a
-			href="https://github.com/GabrielRinaldin/inFomoney"> GitHub</a>.
-		</strong> All rights reserved.
-		<div class="float-right d-none d-sm-inline-block">
-			<b>Version</b> 3.1.0
-		</div>
-	</footer>
-
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$.ajax({
+		        type : "GET",
+		        url : "tabelaservlet",
+		        success : function(data) {
+		           
+		            $.each(data, function(i, item) {
+		                $("#jogos")
+		                    .append('<tr>')
+		                    .append('<td>' + item.data_realizacao + '</td>')
+		                    .append('<td>' + item.hora_realizacao + '</td>')
+		                    .append('<td>' + item.nome_time_mandante + '</td>')
+		                    .append('<td>' + item.placar_mandante + ' x ' + item.placar_mandante + '</td>')
+		                    .append('<td>' + item.nome_time_visitante + '</td>')
+		                    .append('</tr>')
+		            });
+		        }
+		    })
+		    $.ajax({
+		        type : "GET",
+		        url : "tabela2servlet",
+		        success : function(data) {
+		           console.log(data);
+		            $.each(data, function(i, item) {
+		                $("#colocacao")
+		                    .append('<tr>')
+		                    .append('<td>' + (i + 1) + 'º</td>')
+		                    .append('<td> <img src = "' + item.escudo + '"width="50" height="100"></td>')
+		                    .append('<td>' + item.gols + '</td>')
+		                    .append('<td>' + item.nome_popular + '</td>')
+		                    .append('</tr>')
+		            });
+		        }
+		    })
+		})
+	</script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package controler;
+package servlet;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,6 +18,8 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import controler.Fase_Controler;
+import controler.Jogos_Controler;
 import dao.Fase_Dao;
 import dao.Login_Dao;
 import dao.Ranking_Dao;
@@ -31,11 +33,10 @@ public class Graficos extends HttpServlet {
 
 	private Fase_Dao faseDao;
 	private Login_Dao loginDao;
-	//private Ranking_Dao rankingDao;
 	private boolean Login;
 
 	public Graficos() {
-
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -57,25 +58,17 @@ public class Graficos extends HttpServlet {
 		response.sendRedirect("Login.jsp");
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session=request.getSession();
 		String email = request.getParameter("username");
 		String senha = request.getParameter("password");
-		
-	    //Ranking ranking = new Ranking();
-        //List<Ranking> lista = ranking.buscarTodos();//facade.buscarTodos();
-        //RequestDispatcher rd = request.getRequestDispatcher("/ranking.jsp");
-        //request.setAttribute("lista", lista);
-        //rd.forward(request, response);
 
 		Login = toLogin(email, senha);
 		if (Login) {
 			
 			session.setAttribute("status", "SUCCESS");
 
-			// servico
 			String SURL = "https://api.api-futebol.com.br/v1/campeonatos/2/fases/91";
 			URL url = new URL(SURL);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -95,7 +88,6 @@ public class Graficos extends HttpServlet {
 
 			in.close();
 
-			// conversao response to json
 			JsonObject convertedObject = new Gson().fromJson(Response.toString(), JsonObject.class);
 			Fase_Controler fase_controler = new Fase_Controler();
 			fase_controler.toFaseJson(convertedObject);
@@ -126,13 +118,6 @@ public class Graficos extends HttpServlet {
 		    response.sendRedirect("Login.jsp");
 			
 		}
-		
-		//rankingDao = new Ranking_Dao();
-		//ArrayList<Ranking> lista = rankingDao.selectAllRanking();
-		//request.setAttribute("listaTodas", lista);
-		
-		//RequestDispatcher rd = request.getRequestDispatcher("ranking.jsp");
-		//rd.forward(request, response);
 
 	}
 
