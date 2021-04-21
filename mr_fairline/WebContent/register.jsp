@@ -65,7 +65,7 @@
 						<!--<li class="button-header justify-content-center" type="submit" name="submit"><a class="btn">CADASTRAR</a></li>-->
 					</div>
 					<br> <a href="Login.jsp" class="registration text-center"
-						style="color: white">Entrar</a>
+						style="color: white">Sair</a>
 				</div>
 			</form>
 		</main>

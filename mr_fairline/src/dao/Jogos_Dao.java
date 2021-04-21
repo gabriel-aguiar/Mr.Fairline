@@ -103,7 +103,9 @@ public class Jogos_Dao extends Connect{
 				jogos.setCampeonato_id(rs.getLong("campeonato_id"));
 				jogos.setPlacar(rs.getString("placar"));
 				jogos.setTime_visitante_id(rs.getLong("time_visitante_id"));
+				jogos.setNome_time_visitante(rs.getString("nome_time_visitante"));
 				jogos.setTime_mandante_id(rs.getLong("time_mandante_id"));
+				jogos.setNome_time_mandante(rs.getString("nome_time_mandante"));
 				jogos.setPlacar_mandante(rs.getInt("placar_mandante"));
 				jogos.setPlacar_visitante(rs.getInt("placar_visitante"));
 				jogos.setStatus(rs.getString("status"));
@@ -112,8 +114,11 @@ public class Jogos_Dao extends Connect{
 				jogos.setHora_realizacao(rs.getString("hora_realizacao"));
 				jogos.setData_realizacao_iso(rs.getString("data_realizacao_iso"));
 				jogos.setEstadio_id(rs.getLong("estadio_id"));
+				jogos.setNome_estadio(rs.getString("nome_estadio"));
 				jogos.setLink(rs.getString("link"));
 				jogos.setFase_id(rs.getLong("fase_id"));
+				jogos.setLogo(rs.getString("logo"));
+				jogos.setSigla(rs.getString("sigla"));
 			
 				listTime.add (jogos);
 			}		

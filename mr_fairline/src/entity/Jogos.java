@@ -11,6 +11,8 @@ public class Jogos {
 	private Long time_mandante_id;
 	private int placar_mandante;
 	private int placar_visitante;
+	private String nome_time_mandante;
+	private String nome_time_visitante;
 	private String status;
 	private String slug;
 	private String data_realizacao;
@@ -18,18 +20,22 @@ public class Jogos {
 	private String data_realizacao_iso;
 	private Estadio estadio;
 	private Long estadio_id;
+	private String nome_estadio;
 	private String link;
 	private Fase fase;
 	private Long fase_id;
+	private String logo;
+	private String sigla;
 
 	public Jogos() {
 
 	}
 
 	public Jogos(String nome, Campeonato campeonato, Long campeonato_id, String placar, Long time_visitante_id,
-			Long time_mandante_id, int placar_mandante, int placar_visitante, String status, String slug,
-			String data_realizacao, String hora_realizacao, String data_realizacao_iso, Estadio estadio, Long estadio_id,
-			String link, Fase fase, Long fase_id) {
+			Long time_mandante_id, int placar_mandante, int placar_visitante, String nome_time_mandante,
+			String nome_time_visitante, String status, String slug, String data_realizacao, String hora_realizacao,
+			String data_realizacao_iso, Estadio estadio, Long estadio_id, String nome_estadio, String link, Fase fase,
+			Long fase_id, String logo, String sigla) {
 		super();
 		this.nome = nome;
 		this.campeonato = campeonato;
@@ -39,6 +45,8 @@ public class Jogos {
 		this.time_mandante_id = time_mandante_id;
 		this.placar_mandante = placar_mandante;
 		this.placar_visitante = placar_visitante;
+		this.nome_time_mandante = nome_time_mandante;
+		this.nome_time_visitante = nome_time_visitante;
 		this.status = status;
 		this.slug = slug;
 		this.data_realizacao = data_realizacao;
@@ -46,15 +54,19 @@ public class Jogos {
 		this.data_realizacao_iso = data_realizacao_iso;
 		this.estadio = estadio;
 		this.estadio_id = estadio_id;
+		this.nome_estadio = nome_estadio;
 		this.link = link;
 		this.fase = fase;
 		this.fase_id = fase_id;
+		this.logo = logo;
+		this.sigla = sigla;
 	}
 
 	public Jogos(Long jogos_id, String nome, Campeonato campeonato, Long campeonato_id, String placar,
-			Long time_visitante_id, Long time_mandante_id, int placar_mandante, int placar_visitante, String status,
-			String slug, String data_realizacao, String hora_realizacao, String data_realizacao_iso, Estadio estadio,
-			Long estadio_id, String link, Fase fase, Long fase_id) {
+			Long time_visitante_id, Long time_mandante_id, int placar_mandante, int placar_visitante,
+			String nome_time_mandante, String nome_time_visitante, String status, String slug, String data_realizacao,
+			String hora_realizacao, String data_realizacao_iso, Estadio estadio, Long estadio_id, String nome_estadio,
+			String link, Fase fase, Long fase_id, String logo, String sigla) {
 		super();
 		this.jogos_id = jogos_id;
 		this.nome = nome;
@@ -65,6 +77,8 @@ public class Jogos {
 		this.time_mandante_id = time_mandante_id;
 		this.placar_mandante = placar_mandante;
 		this.placar_visitante = placar_visitante;
+		this.nome_time_mandante = nome_time_mandante;
+		this.nome_time_visitante = nome_time_visitante;
 		this.status = status;
 		this.slug = slug;
 		this.data_realizacao = data_realizacao;
@@ -72,9 +86,12 @@ public class Jogos {
 		this.data_realizacao_iso = data_realizacao_iso;
 		this.estadio = estadio;
 		this.estadio_id = estadio_id;
+		this.nome_estadio = nome_estadio;
 		this.link = link;
 		this.fase = fase;
 		this.fase_id = fase_id;
+		this.logo = logo;
+		this.sigla = sigla;
 	}
 
 	public Long getJogos_id() {
@@ -149,6 +166,22 @@ public class Jogos {
 		this.placar_visitante = placar_visitante;
 	}
 
+	public String getNome_time_mandante() {
+		return nome_time_mandante;
+	}
+
+	public void setNome_time_mandante(String nome_time_mandante) {
+		this.nome_time_mandante = nome_time_mandante;
+	}
+
+	public String getNome_time_visitante() {
+		return nome_time_visitante;
+	}
+
+	public void setNome_time_visitante(String nome_time_visitante) {
+		this.nome_time_visitante = nome_time_visitante;
+	}
+
 	public String getStatus() {
 		return status;
 	}
@@ -205,6 +238,14 @@ public class Jogos {
 		this.estadio_id = estadio_id;
 	}
 
+	public String getNome_estadio() {
+		return nome_estadio;
+	}
+
+	public void setNome_estadio(String nome_estadio) {
+		this.nome_estadio = nome_estadio;
+	}
+
 	public String getLink() {
 		return link;
 	}
@@ -229,6 +270,22 @@ public class Jogos {
 		this.fase_id = fase_id;
 	}
 
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+	public String getSigla() {
+		return sigla;
+	}
+
+	public void setSigla(String sigla) {
+		this.sigla = sigla;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -244,10 +301,15 @@ public class Jogos {
 		result = prime * result + ((hora_realizacao == null) ? 0 : hora_realizacao.hashCode());
 		result = prime * result + ((jogos_id == null) ? 0 : jogos_id.hashCode());
 		result = prime * result + ((link == null) ? 0 : link.hashCode());
+		result = prime * result + ((logo == null) ? 0 : logo.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((nome_estadio == null) ? 0 : nome_estadio.hashCode());
+		result = prime * result + ((nome_time_mandante == null) ? 0 : nome_time_mandante.hashCode());
+		result = prime * result + ((nome_time_visitante == null) ? 0 : nome_time_visitante.hashCode());
 		result = prime * result + ((placar == null) ? 0 : placar.hashCode());
 		result = prime * result + placar_mandante;
 		result = prime * result + placar_visitante;
+		result = prime * result + ((sigla == null) ? 0 : sigla.hashCode());
 		result = prime * result + ((slug == null) ? 0 : slug.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((time_mandante_id == null) ? 0 : time_mandante_id.hashCode());
@@ -319,10 +381,30 @@ public class Jogos {
 				return false;
 		} else if (!link.equals(other.link))
 			return false;
+		if (logo == null) {
+			if (other.logo != null)
+				return false;
+		} else if (!logo.equals(other.logo))
+			return false;
 		if (nome == null) {
 			if (other.nome != null)
 				return false;
 		} else if (!nome.equals(other.nome))
+			return false;
+		if (nome_estadio == null) {
+			if (other.nome_estadio != null)
+				return false;
+		} else if (!nome_estadio.equals(other.nome_estadio))
+			return false;
+		if (nome_time_mandante == null) {
+			if (other.nome_time_mandante != null)
+				return false;
+		} else if (!nome_time_mandante.equals(other.nome_time_mandante))
+			return false;
+		if (nome_time_visitante == null) {
+			if (other.nome_time_visitante != null)
+				return false;
+		} else if (!nome_time_visitante.equals(other.nome_time_visitante))
 			return false;
 		if (placar == null) {
 			if (other.placar != null)
@@ -332,6 +414,11 @@ public class Jogos {
 		if (placar_mandante != other.placar_mandante)
 			return false;
 		if (placar_visitante != other.placar_visitante)
+			return false;
+		if (sigla == null) {
+			if (other.sigla != null)
+				return false;
+		} else if (!sigla.equals(other.sigla))
 			return false;
 		if (slug == null) {
 			if (other.slug != null)
@@ -356,5 +443,4 @@ public class Jogos {
 		return true;
 	}
 
-	
 }
