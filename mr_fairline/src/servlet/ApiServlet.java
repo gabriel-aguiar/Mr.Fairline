@@ -28,14 +28,14 @@ import entity.Login;
 import entity.Ranking;
 
 @WebServlet(name = "graficos", urlPatterns = { "/graficos" })
-public class Graficos extends HttpServlet {
+public class ApiServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private Fase_Dao faseDao;
 	private Login_Dao loginDao;
 	private boolean Login;
 
-	public Graficos() {
+	public ApiServlet() {
 		
 	}
 

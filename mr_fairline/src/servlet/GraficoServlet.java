@@ -12,31 +12,29 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import dao.Partidas_Dao;
-import entity.Partidas;
+import dao.Graficos_Dao;
+import entity.Graficos;
 
-@WebServlet(name = "tabelaservlet", urlPatterns = { "/tabelaservlet" })
-public class TabelaServlet extends HttpServlet {
+@WebServlet(name = "graficoservlet", urlPatterns = { "/graficoservlet" })
+public class GraficoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	private Partidas_Dao partidasDao;
+	private Graficos_Dao graficoDao;
 	
-    public TabelaServlet() {
-    	
-    	this.partidasDao = new Partidas_Dao(); 
+    public GraficoServlet() {
+        
+    	this.graficoDao = new Graficos_Dao();
     	
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		
-		ArrayList<Partidas> partidas = partidasDao.selectAllPartidas();
-		request.setAttribute("listaPartidas", partidas);
+		ArrayList<Graficos> grafic =  graficoDao.selectAllGraficos();
 		Gson gson = new Gson();
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
-        out.println(gson.toJson(partidas));
-		
+        out.println(gson.toJson(grafic));
+        
 	}
 
 }
