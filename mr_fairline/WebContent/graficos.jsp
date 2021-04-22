@@ -37,9 +37,7 @@
 							'packages' : [ 'corechart' ]
 						});
 						google.charts.setOnLoadCallback(function() {
-							drawChart(result), drawCurveTypes(result),
-									drawChartPie(result),
-									drawChartVariacao(result);
+									drawChartPie(result)
 						});
 					}
 				});
@@ -54,7 +52,7 @@
 					dataLine.addRows(dataArray);
 					var options = {
 						pieSliceText : 'value-and-percentage',
-						title : 'Valores Convertidos (1 / Valor da moeda)',
+						title : 'TOP 5 TIMES DA CASA',
 						width : 1600,
 						height : 500,
 					};

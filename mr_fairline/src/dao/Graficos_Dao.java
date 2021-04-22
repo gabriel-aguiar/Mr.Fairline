@@ -14,17 +14,12 @@ public class Graficos_Dao extends Connect{
 	private static final String INNER_JOIN = "SELECT nome_popular, "
 			+ "       GOLS "
 			+ " FROM "
-			+ "  (SELECT time.nome_popular,"
+			+ "  (SELECT time.nome_popular, "
 			+ "          jogo.placar_mandante AS GOLS "
 			+ "   FROM TIME "
-			+ "   INNER JOIN jogo ON time_id = jogo.time_mandante_id "
-			+ "   UNION SELECT time.nome_popular, "
-			+ "                jogo.placar_visitante AS GOLS "
-			+ "   FROM TIME "
-			+ "   INNER JOIN jogo ON time_id = jogo.time_visitante_id) AS GOLS "
+			+ "   INNER JOIN jogo ON time_id = jogo.time_mandante_id) AS GOLS "
 			+ " ORDER BY GOLS DESC "
 			+ " LIMIT 5;";
-			
 	
 	public ArrayList<Graficos> selectAllGraficos() {
 		
@@ -47,6 +42,6 @@ public class Graficos_Dao extends Connect{
 
 		return listGraficos;
 
-	}
+	}	
 
 }

@@ -15,28 +15,26 @@ import com.google.gson.Gson;
 import dao.Ranking_Dao;
 import entity.Ranking;
 
-
 @WebServlet(name = "tabela2servlet", urlPatterns = { "/tabela2servlet" })
 public class Tabela2Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	private Ranking_Dao rankingDao;
-
+	
     public Tabela2Servlet() {
-
+   
     	this.rankingDao = new Ranking_Dao(); 
     	
     }
 
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		ArrayList<Ranking> lista = rankingDao.selectAllRanking();
-		request.setAttribute("listaTodas", lista);
-		Gson gson1 = new Gson();
+		ArrayList<Ranking> partidas = rankingDao.selectAllRanking();
+		request.setAttribute("listaPartidas", partidas);
+		Gson gson = new Gson();
         response.setContentType("application/json");
-        PrintWriter out1 = response.getWriter();
-        out1.println(gson1.toJson(lista));
+        PrintWriter out = response.getWriter();
+        out.println(gson.toJson(partidas));
 		
 	}
 
