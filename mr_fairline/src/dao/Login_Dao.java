@@ -72,6 +72,35 @@ public class Login_Dao extends Connect{
 		
 	}
 	
+public  ArrayList<Login> selectDisparaEmail(String email) {
+		
+		ArrayList<Login> listLogin = new ArrayList<Login>();
+		try(Connection connection = this.conectar();
+				PreparedStatement pst = connection.prepareStatement(SELECT_email + "'" + email + "'");)
+		{
+			ResultSet rs = pst.executeQuery();
+			
+			while(rs.next())
+			{				
+
+				Login login = new Login();
+				login.setNome(rs.getString("nome"));
+				login.setEmail(rs.getString("email"));
+				login.setSenha(rs.getString("senha"));
+			
+				listLogin.add (login);
+			}		
+			
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
+		return listLogin;
+		
+	}
+	
 	public boolean ValidaLoginEmail(String email) {
 		
 		try(Connection connection = this.conectar();

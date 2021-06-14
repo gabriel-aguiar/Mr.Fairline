@@ -45,6 +45,7 @@ public class ApiServlet extends HttpServlet {
 		String nome = request.getParameter("name");
 		String email = request.getParameter("email");
 		String senha = request.getParameter("password");
+		
 
 		Login login = toRegister(nome, email, senha);
 		try {

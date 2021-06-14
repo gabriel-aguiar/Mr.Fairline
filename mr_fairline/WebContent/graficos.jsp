@@ -55,6 +55,7 @@
 						});
 					}
 				});
+				
 				function drawChartPie(result) {
 					var dataLine = new google.visualization.DataTable();
 					dataLine.addColumn('string', 'nome_popular');
@@ -66,14 +67,72 @@
 					dataLine.addRows(dataArray);
 					var options = {
 						pieSliceText : 'value-and-percentage',
-						width : 1400,
+						width : 1100,
 						height : 450,
+						title : 'Top equipes com o melhor ataque jogando como mandante copa do Brasil 2021',
 					};
 					var chart = new google.visualization.PieChart(document
 							.getElementById('drawChartPie'));
 					chart.draw(dataLine, options);
-				}
+				}		
 			});
+</script>
+
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+				$.ajax({
+					url : "grafico2servlet",
+					dataTYPE : "JSON",
+					success : function(result) {
+						google.charts.load('current', {
+							'packages' : [ 'corechart' ]
+						});
+						google.charts.setOnLoadCallback(function() {
+								drawChartCol(result)
+						});
+						
+						console.log(result);
+						
+					}
+				
+				});
+				
+				function drawChartCol(result) {
+					var data = new google.visualization.DataTable();
+					data.addColumn('string', 'nome_popular');
+					data.addColumn('number', 'gols');
+					data.addColumn({
+						role : 'style'
+					});
+					data.addColumn({
+						role : 'annotation'
+					});
+					var dataArray = [];
+					$.each(result, function(i, obj) {
+						var pct = obj.gols2;
+						if (pct < 0) {
+							dataArray.push([ obj.nome_popular2, pct, 'color: red',
+									pct + '%' ]);
+						} else {
+							dataArray.push([ obj.nome_popular2, pct, 'color: green',
+									pct + '%' ]);
+						}
+					});
+					data.addRows(dataArray);
+					var options = {
+							title : 'Percentual de gols top 15',
+							width : 950,
+							height : 450,
+							legend : 'none',
+					};
+					var chart = new google.visualization.ColumnChart(document
+							.getElementById('drawChartCol'));
+					chart.draw(data, options);
+				}
+				
+			});
+	
 </script>
 
 <style type="text/css">
@@ -135,6 +194,22 @@ body h1 {
                                 <div class="testimonial-caption" >
                                     <img src="assets/img/icon/quotes-sign.png" alt="" class="quotes-sign">
                                     <div id="drawChartPie" ></div>
+                                    <p>Brook presents your services with flexible, convenient and cdpose layouts. You can select your favorite layouts & elements for cular ts with unlimited ustomization possibilities. Pixel-perfect replica;ition of thei designers ijtls intended csents your se.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+             <div class="testimonial-wrapper">
+                <div class="row align-items-center justify-content-center" >
+                    <div class=" col-lg-10 col-md-12 col-sm-11" >
+                        <div class="h1-testimonial-active"> 
+                            <div class="single-testimonial text-center mt-55" style="background-color:#FFFFFF; height: 600px; width: 400px">
+                                <div class="testimonial-caption" >
+                                    <img src="assets/img/icon/quotes-sign.png" alt="" class="quotes-sign">
+                                    <div id="drawChartCol" ></div>
                                     <p>Brook presents your services with flexible, convenient and cdpose layouts. You can select your favorite layouts & elements for cular ts with unlimited ustomization possibilities. Pixel-perfect replica;ition of thei designers ijtls intended csents your se.</p>
                                 </div>
                             </div>

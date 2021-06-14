@@ -29,6 +29,10 @@
         <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+<%
+session.removeAttribute("usuarioautenticado");
+response.sendRedirect("Login.jsp");
+%>
         <div id="preloader-active">
             <div class="preloader d-flex align-items-center justify-content-center">
                 <div class="preloader-inner position-relative">
@@ -399,5 +403,5 @@
     <!-- Jquery Plugins, main Jquery -->	
     <script src="./assets/js/plugins.js"></script>
     <script src="./assets/js/main.js"></script>
-    
+
 </html>
