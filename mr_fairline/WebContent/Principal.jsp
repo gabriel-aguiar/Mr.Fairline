@@ -29,10 +29,6 @@
         <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-<%
-session.removeAttribute("usuarioautenticado");
-response.sendRedirect("Login.jsp");
-%>
         <div id="preloader-active">
             <div class="preloader d-flex align-items-center justify-content-center">
                 <div class="preloader-inner position-relative">
@@ -64,7 +60,7 @@ response.sendRedirect("Login.jsp");
                                                 <li><a href="packages.html">Planos</a></li>
                                                 <li><a href="#">Blog</a>
                                                 <ul class="submenu">
-                                                  <li><a href="blog.html">Estatísticas</a></li>
+                                                  <li><a href="Amistoso.jsp">Palpites</a></li>
                                                   <li><a href="graficos.jsp">Gráficos</a></li>
                                                   <li><a href="ranking.jsp" >Tabelas</a></li>
                                                 </ul>
