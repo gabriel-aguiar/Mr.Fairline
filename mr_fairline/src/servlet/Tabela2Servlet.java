@@ -30,6 +30,11 @@ public class Tabela2Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		ArrayList<Ranking> partidas = rankingDao.selectAllRanking();
+		for (Ranking partida : partidas) {
+			
+			System.out.println(partida.getNome_popular() + partida.getGols());
+			
+		}
 		request.setAttribute("listaPartidas", partidas);
 		Gson gson = new Gson();
         response.setContentType("application/json");
