@@ -30,6 +30,9 @@
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+	<%
+	session.setAttribute("usuario", null);
+	%>
 	<div style="background-color: rgb(90, 1, 102)">
 		<div id="preloader-active">
 			<div
@@ -57,9 +60,10 @@
 					<div class="form-input pt-30">
 						<td colspan="2"><input type="submit" value="Entrar" /></td>
 					</div>
-					<a href="recupera.jsp" class="forget text-center" style="color: white">Esqueci
-						minha senha</a> 
-						<a href="register.jsp" class="registration text-center" style="color: white">Registrar</a>
+					<a href="recupera.jsp" class="forget text-center"
+						style="color: white">Esqueci minha senha</a> <a
+						href="register.jsp" class="registration text-center"
+						style="color: white">Registrar</a>
 				</div>
 			</form>
 		</main>

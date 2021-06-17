@@ -139,5 +139,14 @@ href="assets/img/logo/icons8-soccer-ball-35.png">
 <!-- Jquery Plugins, main Jquery -->
 <script src="./assets/js/plugins.js"></script>
 <script src="./assets/js/main.js"></script>
-
+<%
+if (session.getAttribute("Status") != null && session.getAttribute("Status") == ("ERROR")) {
+	//response.sendRedirect("Login.jsp");
+%>
+<script type="text/javascript">
+	alert("USUARIO OU SENHA INCORRETO - FAVOR SE NÂO TIVER CADASTRO FAZER");
+</script>
+<%
+}
+%>
 </html>

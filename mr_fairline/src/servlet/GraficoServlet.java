@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.FilterChain;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -34,12 +35,24 @@ public class GraficoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		HttpSession session = request.getSession();
+
+		if (session.getAttribute("usuario") != null) {
+
 			ArrayList<Graficos> grafic = graficoDao.selectAllGraficos();
 			Gson gson = new Gson();
 			response.setContentType("application/json");
 			PrintWriter out = response.getWriter();
 			out.println(gson.toJson(grafic));
+		} else {
+
+			session.setAttribute("Status", "ERROR");
+			RequestDispatcher disp;
+			disp = request.getRequestDispatcher("Login.jsp");
+			disp.forward(request, response);
 
 		}
+
+	}
 
 }

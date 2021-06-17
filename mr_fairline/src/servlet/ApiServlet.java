@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -36,7 +37,7 @@ public class ApiServlet extends HttpServlet {
 	private boolean Login;
 
 	public ApiServlet() {
-		
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -45,7 +46,6 @@ public class ApiServlet extends HttpServlet {
 		String nome = request.getParameter("name");
 		String email = request.getParameter("email");
 		String senha = request.getParameter("password");
-		
 
 		Login login = toRegister(nome, email, senha);
 		try {
@@ -59,15 +59,16 @@ public class ApiServlet extends HttpServlet {
 		response.sendRedirect("Login.jsp");
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-		HttpSession session=request.getSession();
+		HttpSession session = request.getSession();
 		String email = request.getParameter("username");
 		String senha = request.getParameter("password");
 
 		Login = toLogin(email, senha);
 		if (Login) {
-			
+
 			session.setAttribute("status", "SUCCESS");
 
 			String SURL = "https://api.api-futebol.com.br/v1/campeonatos/2/fases/91";
@@ -92,7 +93,7 @@ public class ApiServlet extends HttpServlet {
 			JsonObject convertedObject = new Gson().fromJson(Response.toString(), JsonObject.class);
 			Fase_Controler fase_controler = new Fase_Controler();
 			fase_controler.toFaseJson(convertedObject);
-			
+
 			// SALVAR
 
 			Fase fase = fase_controler.toFaseJson(convertedObject);
@@ -109,15 +110,16 @@ public class ApiServlet extends HttpServlet {
 			}
 
 			session.setAttribute("Status", "SUCCESS");
+			session.setAttribute("usuario", email);
 			response.sendRedirect("Principal.jsp");
-			
-		}else{
-			
+
+		} else {
+
 			session.setAttribute("username", "");
 			session.setAttribute("password", "");
-		    session.setAttribute("Status", "ERROR");
-		    response.sendRedirect("Login.jsp");
-			
+			session.setAttribute("Status", "ERROR");
+			response.sendRedirect("Login.jsp");
+
 		}
 
 	}

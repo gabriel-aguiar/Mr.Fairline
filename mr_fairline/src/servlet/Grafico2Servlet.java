@@ -19,23 +19,24 @@ import entity.GraficosCol;
 @WebServlet(name = "grafico2servlet", urlPatterns = { "/grafico2servlet" })
 public class Grafico2Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	private GraficoCol_Dao GraficoColDao;
-   
-    public Grafico2Servlet() {
-        
-    	this.GraficoColDao = new GraficoCol_Dao(); 
-        
-    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	private GraficoCol_Dao GraficoColDao;
+
+	public Grafico2Servlet() {
+
+		this.GraficoColDao = new GraficoCol_Dao();
+
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		ArrayList<GraficosCol> graficCol = GraficoColDao.selectAllGraficosCol();
 		Gson gson = new Gson();
-        response.setContentType("application/json");
-        PrintWriter out = response.getWriter();
-        out.println(gson.toJson(graficCol));
-		
+		response.setContentType("application/json");
+		PrintWriter out = response.getWriter();
+		out.println(gson.toJson(graficCol));
+
 	}
 
 }

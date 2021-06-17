@@ -146,6 +146,12 @@ body h1 {
 </style>
 </head>
 <body>
+<% if(session.getAttribute("usuario") == null){
+	
+	response.sendRedirect("Login.jsp");
+	
+}
+%>
 	<header>
 		<div class="header-area header-transparent"
 			style="border: 2px; border-color: black;">
