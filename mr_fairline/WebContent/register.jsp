@@ -43,25 +43,27 @@
 		</div>
 
 		<main class="login-body">
-			<form class="form-default" action="graficos" method="POST">
+			<form name="formuser" class="form-default" action="graficos" method="POST">
 				<div class="login-form">
 					<h2>Registrar agora</h2>
 					<div class="form-input">
-						<label for="name">Nome</label> <input required name="name" id="name" type="name" name="name">
+						<label for="name">Nome</label> <input required name="name"
+							id="name" type="name" name="name">
 					</div>
 					<div class="form-input">
-						<label for="name">Email</label> <input required name="email" id="email" type="email" name="email">
+						<label for="name">Email</label> <input required name="email"
+							id="email" type="email" name="email">
 					</div>
 					<div class="form-input">
-						<label for="name">Senha</label> <input  required name="password" id="password" type="password"
-							name="password">
+						<label for="name">Senha</label> <input required name="password"
+							id="password" type="password" name="password">
 					</div>
 					<div class="form-input">
-						<label for="name">Confirmação de senha</label> <input
-							required name="password" id="password" type="password" name="password">
+						<label for="name">Confirmação de senha</label> <input required
+							name="password2" id="password2" type="password" name="password2">
 					</div>
 					<div class="form-input pt-30">
-						<td colspan="2"><input type="submit" value="Cadastrar" /></td>
+						<td colspan="2"><input type="submit" value="Cadastrar" onclick="return validar()"/></td>
 						<!--<li class="button-header justify-content-center" type="submit" name="submit"><a class="btn">CADASTRAR</a></li>-->
 					</div>
 					<br> <a href="Login.jsp" class="registration text-center"
@@ -75,6 +77,30 @@
 		</div>
 	</div>
 </body>
+<script type="text/javascript">
+	function validar() {
+		var password = formuser.password.value;
+		var password2 = formuser.password2.value;
+
+		if (password == "" || password.length <= 5) {
+			alert('Preencha o campo senha com minimo 6 caracteres');
+			formuser.password.focus();
+			return false;
+		}
+
+		if (password2 == "" || password2.length <= 5) {
+			alert('Preencha o campo senha com minimo 6 caracteres');
+			formuser.password2.focus();
+			return false;
+		}
+
+		if (password != password2) {
+			alert('Senhas diferentes');
+			formuser.password.focus();
+			return false;
+		}
+	}
+</script>
 <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
 <!-- Jquery, Popper, Bootstrap -->
 <script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>

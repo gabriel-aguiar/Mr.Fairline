@@ -10,7 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="manifest" href="site.webmanifest">
 <link rel="shortcut icon" type="image/x-icon"
-	href="assets/img/logo/icons8-soccer-ball-35.png">
+href="assets/img/logo/icons8-soccer-ball-35.png">
 
 <!-- CSS here -->
 <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -43,7 +43,7 @@
 		</div>
 
 		<main class="login-body">
-			<form class="form-default" action="recuperacaoservlet" method="POST">
+			<form name="formuser" class="form-default" action="recuperacaoservlet" method="POST">
 				<div class="login-form">
 					<h2>Informe os dados a baixo para recuperar a senha </h2>
 					<div class="form-input">
@@ -53,10 +53,10 @@
 						<label for="name">Nova senha</label> <input required name="nsenha" id="nsenha" type="password" name="nsenha">
 					</div>
 					<div class="form-input">
-						<label for="name">Confirmação de senha</label> <input  required name="csenha" id="csenha" type="password" name="csenha">
+						<label for="name">Confirmação de senha</label> <input  required name="rep_senha" id="rep_senha" type="password" name="rep_senha">
 					</div>
 					<div class="form-input pt-30">
-						<td colspan="2"><input type="submit" value="Salvar" /></td>
+						<td colspan="2"><input type="submit" value="Salvar" onclick="return validar()"/></td>
 						<!--<li class="button-header justify-content-center" type="submit" name="submit"><a class="btn">CADASTRAR</a></li>-->
 					</div>
 					<br> <a href="Login.jsp" class="registration text-center"
@@ -70,6 +70,32 @@
 		</div>
 	</div>
 </body>
+
+<script type="text/javascript">
+			function validar(){
+				var nsenha = formuser.nsenha.value;
+				var rep_senha = formuser.rep_senha.value;
+				
+				if(nsenha == "" || nsenha.length <= 5){
+					alert('Preencha o campo senha com minimo 6 caracteres');
+					formuser.nsenha.focus();
+					return false;
+				}
+				
+				if(rep_senha == "" || rep_senha.length <= 5){
+					alert('Preencha o campo senha com minimo 6 caracteres');
+					formuser.rep_senha.focus();
+					return false;
+				}
+				
+				if (nsenha != rep_senha) {
+					alert('Senhas diferentes');
+					formuser.nsenha.focus();
+					return false;
+				}
+			}
+		</script>
+		
 <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
 <!-- Jquery, Popper, Bootstrap -->
 <script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
