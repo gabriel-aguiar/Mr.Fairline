@@ -50,7 +50,7 @@
 						<label for="name">Email</label> <input required name="email" id="email" type="email" name="email">
 					</div>
 					<div class="form-input pt-30">
-						<td colspan="2"><input type="submit" value="Enviar" /></td>
+						<td colspan="2"><input onclick="funcaoEnviar()" type="submit" value="Enviar" /></td>
 					</div>
 					<br> <a href="Login.jsp" class="registration text-center"
 						style="color: white">Sair</a>
@@ -63,6 +63,13 @@
 		</div>
 	</div>
 </body>
+
+<script>
+		function funcaoEnviar()
+		{
+			alert("O email foi enviado com sucesso!");
+		}
+</script>
 <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
 <!-- Jquery, Popper, Bootstrap -->
 <script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>

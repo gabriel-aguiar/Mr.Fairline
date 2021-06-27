@@ -6,6 +6,7 @@
 <%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html lang="pt-br">
+<title>Amistosos</title>
 <head>
 <meta charset="utf-8">
 
@@ -99,6 +100,13 @@ body h1 {
 
 </head>
 <body>
+	<%
+	if (session.getAttribute("usuario") == null) {
+
+		response.sendRedirect("Login.jsp");
+
+	}
+	%>
 	<header>
 		<div class="header-area header-transparent"
 			style="border: 2px; border-color: black;">
@@ -119,9 +127,8 @@ body h1 {
 									<div class="main-menu d-none d-lg-block">
 										<nav>
 											<ul id="navigation">
-												<li><a href="index.html">Home</a></li>
 												<li class="button-header margin-left "><a
-													href="Principal.jsp" class="btn">SAIR</a></li>
+													href="Principal.jsp" class="btn">HOME</a></li>
 											</ul>
 										</nav>
 									</div>
@@ -133,44 +140,53 @@ body h1 {
 			</div>
 		</div>
 	</header>
+
 	<section class="pricing-card-area fix">
 		<div class="container" style="margin-top: 10%">
 			<div class="row justify-content-center">
 				<div class="col-xl-8 col-lg-8">
 					<div class="section-tittle text-center mb-90">
-						<h2>Tabelas copa do Brasil 2021</h2>
-						<p>Primeira fase da copa do Brasil 2021 ,conta com 80 times
-							divididos em 40 confrontos. Outras 12 equipes entram na disputa
-							apenas na terceira fase.A primeira fase da competição foi
-							disputada nos dias 9, 10, 11, 16, 17, 18, 25, 26 e 27 de março;</p>
+						<h2>Central de apostas</h2>
+						<p> Utilize essa página para fazer suas apostas e conferir os palpites dos outros torcedores.</p>
 					</div>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-xl-6 col-lg-6 col-md-6 col-sm-10">
+				<div class="col-xl-5 col-lg-5 col-md-6 col-sm-10">
 					<div class="single-card text-center mb-30">
 						<form action="amistososervlet" method="POST">
-							<div class="login-form">
-								<h2>Digite as informações a baixo para propor um amistoso</h2>
-								<div class="form-input">
-									<label for="name">Data Jogo</label> <input required name="data"
-										id="data" type="data" name="data">
-								</div>
-								<div class="form-input">
-									<label for="name">Time 1</label> <input required name="time1"
-										id="time1" type="time1" name="time1">
-								</div>
-								<div class="form-input">
-									<label for="name">Time 2</label> <input required name="time2"
-										id="time2" type="time2" name="time2">
-								</div>
-								<div class="form-input">
-									<label for="name">Palpite resultado</label> <input required
-										name="palpite" id="palpite" type="palpite" name="palpite">
-								</div>
-								<div class="form-input pt-30">
-								<td colspan="2"><input type="submit" value="Enviar Proposta" /></td>
-								</div>
+							<div class="card-top">
+								<img src="assets/img/logo/icons8-soccer-ball-64.png" alt="">
+								<h2 style="margin-left: 25px; margin-right: 25px">Digite as
+									informações a baixo para fazer sua aposta</h2>
+							</div>
+
+							<br>
+							<div class="form-input">
+								<label style="font-size: 14px;" for="name">Data Jogo</label> <input
+									style="max-width: 50%; margin-left: 25%;" class="form-control"
+									class="form-control" required name="data" id="data" type="data"
+									name="data">
+							</div>
+							<div class="form-input">
+								<label style="font-size: 14px;" for="name">Time 1</label> <input
+									style="max-width: 50%; margin-left: 25%;" class="form-control"
+									required name="time1" id="time1" type="time1" name="time1">
+							</div>
+							<div class="form-input">
+								<label style="font-size: 14px;" for="name">Time 2</label> <input
+									style="max-width: 50%; margin-left: 25%;" class="form-control"
+									required name="time2" id="time2" type="time2" name="time2">
+							</div>
+							<div class="form-input">
+								<label style="font-size: 14px;" for="name">Palpite
+									resultado</label> <input style="max-width: 50%; margin-left: 25%;"
+									class="form-control" required name="palpite" id="palpite"
+									type="palpite" name="palpite">
+							</div>
+							<div class="form-input pt-30">
+								<td colspan="2"><input onclick="funcaoEnviar()" class="borders-btn" type="submit"
+									value="Enviar Proposta" /></td>
 							</div>
 						</form>
 					</div>
@@ -179,7 +195,7 @@ body h1 {
 					<div class="single-card text-center mb-30">
 						<div class="card-top">
 							<img src="assets/img/logo/icons8-soccer-ball-64.png" alt="">
-							<h4>Detalhes dos jogos</h4>
+							<h4>Apostas realizadas</h4>
 						</div>
 						<div class="card-body table-responsive p-0" style="height: 500px;">
 							<table class="table table-head-fixed text-nowrap"
@@ -203,66 +219,76 @@ body h1 {
 		</div>
 	</section>
 	<script type="text/javascript">
-		$(document).ready(function() {
-			$.ajax({
-		        type : "GET",
-		        url : "amistososervlet",
-		        success : function(data) {
-		        	console.log(data[10]);
-		            $.each(data, function(i, item) {
-		            	
-		                $("#amistoso")
-		                    .append('<tr>')
-		                    .append('<td>' + item.data_jogo + '</td>')
-		                    .append('<td>' + item.nome_time1 + '</td>')
-		                    .append('<td>' + item.nome_time2 + '</td>')
-		                    .append('<td>' + item.palpite_placar + '</td>')
-		                    .append('</tr>')
-		            });
-		        }
-		    })
-		})
+		$(document).ready(
+				function() {
+					$.ajax({
+						type : "GET",
+						url : "amistososervlet",
+						success : function(data) {
+							console.log(data[10]);
+							$.each(data, function(i, item) {
+
+								$("#amistoso").append('<tr>').append(
+										'<td>' + item.data_jogo + '</td>')
+										.append(
+												'<td>' + item.nome_time1
+														+ '</td>').append(
+												'<td>' + item.nome_time2
+														+ '</td>').append(
+												'<td>' + item.palpite_placar
+														+ '</td>').append(
+												'</tr>')
+							});
+						}
+					})
+				})
 	</script>
+	<script>
+		function funcaoEnviar()
+		{
+			alert("Sua aposta foi realizada com sucesso!");
+		}
+</script>
 	<script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
 
-<!-- Jquery Mobile Menu -->
-<script src="./assets/js/jquery.slicknav.min.js"></script>
+	<!-- Jquery Mobile Menu -->
+	<script src="./assets/js/jquery.slicknav.min.js"></script>
 
-<!-- Jquery Slick , Owl-Carousel Plugins -->
-<script src="./assets/js/owl.carousel.min.js"></script>
-<script src="./assets/js/slick.min.js"></script>
-<!-- One Page, Animated-HeadLin -->
-<script src="./assets/js/wow.min.js"></script>
-<script src="./assets/js/animated.headline.js"></script>
-<script src="./assets/js/jquery.magnific-popup.js"></script>
+	<!-- Jquery Slick , Owl-Carousel Plugins -->
+	<script src="./assets/js/owl.carousel.min.js"></script>
+	<script src="./assets/js/slick.min.js"></script>
+	<!-- One Page, Animated-HeadLin -->
+	<script src="./assets/js/wow.min.js"></script>
+	<script src="./assets/js/animated.headline.js"></script>
+	<script src="./assets/js/jquery.magnific-popup.js"></script>
 
-<!-- Date Picker -->
-<script src="./assets/js/gijgo.min.js"></script>
+	<!-- Date Picker -->
+	<script src="./assets/js/gijgo.min.js"></script>
 
-<!-- Video bg -->
-<script src="./assets/js/jquery.vide.js"></script>
+	<!-- Video bg -->
+	<script src="./assets/js/jquery.vide.js"></script>
 
-<!-- Nice-select, sticky -->
-<script src="./assets/js/jquery.nice-select.min.js"></script>
-<script src="./assets/js/jquery.sticky.js"></script>
-<!-- Progress -->
-<script src="./assets/js/jquery.barfiller.js"></script>
+	<!-- Nice-select, sticky -->
+	<script src="./assets/js/jquery.nice-select.min.js"></script>
+	<script src="./assets/js/jquery.sticky.js"></script>
+	<!-- Progress -->
+	<script src="./assets/js/jquery.barfiller.js"></script>
 
-<!-- counter , waypoint,Hover Direction -->
-<script src="./assets/js/jquery.counterup.min.js"></script>
-<script src="./assets/js/waypoints.min.js"></script>
-<script src="./assets/js/jquery.countdown.min.js"></script>
-<script src="./assets/js/hover-direction-snake.min.js"></script>
+	<!-- counter , waypoint,Hover Direction -->
+	<script src="./assets/js/jquery.counterup.min.js"></script>
+	<script src="./assets/js/waypoints.min.js"></script>
+	<script src="./assets/js/jquery.countdown.min.js"></script>
+	<script src="./assets/js/hover-direction-snake.min.js"></script>
 
-<!-- contact js -->
-<script src="./assets/js/contact.js"></script>
-<script src="./assets/js/jquery.form.js"></script>
-<script src="./assets/js/jquery.validate.min.js"></script>
-<script src="./assets/js/mail-script.js"></script>
-<script src="./assets/js/jquery.ajaxchimp.min.js"></script>
+	<!-- contact js -->
+	<script src="./assets/js/contact.js"></script>
+	<script src="./assets/js/jquery.form.js"></script>
+	<script src="./assets/js/jquery.validate.min.js"></script>
+	<script src="./assets/js/mail-script.js"></script>
+	<script src="./assets/js/jquery.ajaxchimp.min.js"></script>
 
-<!-- Jquery Plugins, main Jquery -->	
-<script src="./assets/js/plugins.js"></script>
-<script src="./assets/js/main.js"></script>
+	<!-- Jquery Plugins, main Jquery -->
+	<script src="./assets/js/plugins.js"></script>
+	<script src="./assets/js/main.js"></script>
 </body>
 </html>

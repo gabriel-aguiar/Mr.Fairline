@@ -172,9 +172,8 @@ body h1 {
 									<div class="main-menu d-none d-lg-block">
 										<nav>
 											<ul id="navigation">
-												<li><a href="index.html">Home</a></li>
 												<li class="button-header margin-left "><a
-													href="Principal.jsp" class="btn">SAIR</a></li>
+													href="Principal.jsp" class="btn">HOME</a></li>
 											</ul>
 										</nav>
 									</div>
